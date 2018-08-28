@@ -1228,15 +1228,6 @@ public class SuperEditText extends AppCompatEditText {
     @Override
     public void setError(CharSequence errorText) {
         tempErrorText = errorText == null ? null : errorText.toString();
-        if (errorText == null) {
-            setError(null, null);
-        } else {
-            Drawable dr = getContext().getDrawable(
-                    R.drawable.indicator_input_error);
-
-            dr.setBounds(0, 0, dr.getIntrinsicWidth(), dr.getIntrinsicHeight());
-            setError(errorText, dr);
-        }
         if (adjustBottomLines()) {
             postInvalidate();
         }
