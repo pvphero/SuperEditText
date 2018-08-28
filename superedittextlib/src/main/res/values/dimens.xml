@@ -8,6 +8,7 @@
   <dimen name="bottom_text_size">12sp</dimen>
   <dimen name="inner_components_spacing">8dp</dimen>
   <dimen name="bottom_ellipsis_height">4dp</dimen>
-
+  <!-- Default width for a textview error popup -->
+  <dimen name="textview_error_popup_default_width">240dip</dimen>
 
 </resources>

@@ -347,6 +347,7 @@ public class SuperEditText extends AppCompatEditText {
     private List<METValidator> validators;
     private METLengthChecker lengthChecker;
 
+    private SetErrorHandler mSetErrorHandler;
 
     public SuperEditText(Context context) {
         super(context);
@@ -368,6 +369,8 @@ public class SuperEditText extends AppCompatEditText {
         if (isInEditMode()) {
             return;
         }
+
+        mSetErrorHandler = new SetErrorHandler(context, this);
 
         iconSize = getPixel(32);
         iconOuterWidth = getPixel(48);
@@ -1012,8 +1015,14 @@ public class SuperEditText extends AppCompatEditText {
                 }
 
                 if (hasFocus) {
+                    if (tempErrorText!=null){
+                        mSetErrorHandler.showError();
+                    }
                     floatingLabelAlwaysShown = true;
                 } else {
+                    if (tempErrorText!=null){
+                        mSetErrorHandler.hideError();
+                    }
                     floatingLabelAlwaysShown = false;
                 }
             }
@@ -1228,9 +1237,10 @@ public class SuperEditText extends AppCompatEditText {
     @Override
     public void setError(CharSequence errorText) {
         tempErrorText = errorText == null ? null : errorText.toString();
-        if (adjustBottomLines()) {
-            postInvalidate();
-        }
+//        if (adjustBottomLines()) {
+//            postInvalidate();
+//        }
+        mSetErrorHandler.setError(errorText);
     }
 
     @Override
