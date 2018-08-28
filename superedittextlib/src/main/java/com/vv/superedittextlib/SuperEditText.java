@@ -438,7 +438,7 @@ public class SuperEditText extends AppCompatEditText {
         bottomTextSize = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_bottomTextSize, getResources().getDimensionPixelSize(R.dimen.bottom_text_size));
         hideUnderline = typedArray.getBoolean(R.styleable.SuperEditText_suet_hideUnderline, false);
         underlineColor = typedArray.getColor(R.styleable.SuperEditText_suet_underlineColor, -1);
-        autoValidate = typedArray.getBoolean(R.styleable.SuperEditText_suet_autoValidate, false);
+        autoValidate = typedArray.getBoolean(R.styleable.SuperEditText_suet_autoValidate, true);
         iconLeftBitmaps = generateIconBitmaps(typedArray.getResourceId(R.styleable.SuperEditText_suet_iconLeft, -1));
         iconRightBitmaps = generateIconBitmaps(typedArray.getResourceId(R.styleable.SuperEditText_suet_iconRight, -1));
         showClearButton = typedArray.getBoolean(R.styleable.SuperEditText_suet_clearButton, false);
