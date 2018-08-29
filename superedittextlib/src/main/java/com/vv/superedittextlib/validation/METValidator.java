@@ -1,4 +1,4 @@
-package com.vv.superedittext.validation;
+package com.vv.superedittextlib.validation;
 
 import android.support.annotation.NonNull;
 

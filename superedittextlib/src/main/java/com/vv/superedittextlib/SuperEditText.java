@@ -40,8 +40,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.vv.superedittext.validation.METLengthChecker;
-import com.vv.superedittext.validation.METValidator;
+import com.vv.superedittextlib.validation.METLengthChecker;
+import com.vv.superedittextlib.validation.METValidator;
 import com.vv.superedittextlib.utils.Colors;
 import com.vv.superedittextlib.utils.Density;
 
@@ -1750,7 +1750,9 @@ public class SuperEditText extends AppCompatEditText {
     }
 
     private int checkLength(CharSequence text) {
-        if (lengthChecker == null) return text.length();
+        if (lengthChecker == null) {
+            return text.length();
+        }
         return lengthChecker.getLength(text);
     }
 

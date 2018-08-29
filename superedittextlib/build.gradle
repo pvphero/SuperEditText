@@ -1,15 +1,13 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.novoda.bintray-release'//添加
+apply from : "upload.gradle"
 android {
     compileSdkVersion 28
-
-
-
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode verMajor * 100000 + verMinor * 100 + verPatch
+        versionName "${verMajor}.${verMinor}.${verPatch}"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -31,4 +29,47 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+publish {
+    artifactId = bintray.artifactId
+    uploadName = bintray.uploadName
+
+    publishVersion = bintray.publishVersion
+    repoName = bintray.repoName
+    groupId = bintray.groupId
+    desc = bintray.desc
+    website = bintray.website
+    repository = bintray.repository
+    licences = bintray.licences
+    dryRun = bintray.dryRun
+    bintrayUser = bintray.user
+    bintrayKey = bintray.key
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+javadoc{
+    options{
+        encoding "UTF-8"
+        charSet "UTF-8"
+    }
 }

@@ -1,0 +1,24 @@
+ext {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    verMajor = 1
+    verMinor = 0
+    verPatch = 1
+
+    bintray = [
+            artifactId    : 'superedittextlib',
+            uploadName    : 'SuperEditText',
+
+            publishVersion: "${verMajor}.${verMinor}.${verPatch}",
+            repoName      : 'SuperEditText',
+            groupId       : 'com.pvphero',
+            desc          : '功能很强大的EditText控件,提示文字可以自动缩放',
+            website       : 'https://github.com/pvphero/SuperEditText',
+            repository    : 'https://github.com/pvphero/SuperEditText',
+            licences      : ['Apache-2.0'],
+            dryRun        : false,
+            user          : properties.getProperty('bintray.user'),
+            key           : properties.getProperty('bintray.key')
+    ]
+}
