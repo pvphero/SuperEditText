@@ -491,8 +491,10 @@ public class SuperEditText extends AppCompatEditText {
         int padding = paddingsTypedArray.getDimensionPixelSize(0, 0);
         innerPaddingLeft = paddingsTypedArray.getDimensionPixelSize(1, padding);
         innerPaddingTop = paddingsTypedArray.getDimensionPixelSize(2, padding);
-        innerPaddingRight = paddingsTypedArray.getDimensionPixelSize(3, padding);
-        innerPaddingBottom = paddingsTypedArray.getDimensionPixelSize(4, padding);
+//        innerPaddingRight = paddingsTypedArray.getDimensionPixelSize(3, padding);
+        innerPaddingRight = mSetErrorHandler.getCompoundPaddingRight();
+//        innerPaddingBottom = paddingsTypedArray.getDimensionPixelSize(4, padding);
+        innerPaddingBottom = mSetErrorHandler.getCompoundPaddingBottom();
         paddingsTypedArray.recycle();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -1501,8 +1503,7 @@ public class SuperEditText extends AppCompatEditText {
 
         int startX = getScrollX() + (iconLeftBitmaps == null ? 0 : (iconOuterWidth + iconPadding)) + getPaddingLeft();
         int endX = getScrollX() + (iconRightBitmaps == null ? getWidth() : getWidth() - iconOuterWidth - iconPadding) - getPaddingRight();
-        int lineStartY = getScrollY() + getHeight() - getPaddingBottom();
-
+        int lineStartY = getScrollY() + getHeight() - getPaddingBottom() - mSetErrorHandler.getCompoundPaddingBottom() / 2;
         // draw the icon(s)
         paint.setAlpha(255);
         if (iconLeftBitmaps != null) {

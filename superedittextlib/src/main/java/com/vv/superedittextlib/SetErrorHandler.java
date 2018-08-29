@@ -131,8 +131,10 @@ public class SetErrorHandler {
                     EditTextLogUtils.d(TAG, "...showing CompoundDrawable on right)...");
                 }
                 ((TextView) mView).setCompoundDrawables(null, null, icon, null);
+                setCompoundDrawables(null, null, icon, null);
             } else {
                 ((TextView) mView).setCompoundDrawables(icon, null, null, null);
+                setCompoundDrawables(icon, null, null, null);
             }
         }
 
@@ -287,7 +289,7 @@ public class SetErrorHandler {
          * of the background.
          */
         final float scale = mView.getResources().getDisplayMetrics().density;
-        return icontop + height - mView.getHeight() - (int) (2 * scale + 0.5f);
+        return icontop + height / 2 - mView.getHeight() - (int) (2 * scale + 0.5f);
 
 
     }
