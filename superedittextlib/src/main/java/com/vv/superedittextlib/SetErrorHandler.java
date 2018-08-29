@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.vv.superedittextlib.utils.LogUtils;
+import com.vv.superedittextlib.utils.EditTextLogUtils;
 
 /**
  * @author ShenZhenWei
@@ -57,15 +57,6 @@ public class SetErrorHandler {
         setupCustomView();
     }
 
-    //necessary for XML inflation (of a View...this isn't a View class anymore)
-	/*
-	public SetErrorAble(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		mContext = context;
-		setupCustomView();
-	}
-	*/
-
     private void setupCustomView() {
         mTop = mView.getTop();
         mBottom = mView.getBottom();
@@ -95,12 +86,12 @@ public class SetErrorHandler {
      */
     public void setError(CharSequence error) {
         if (DEBUG) {
-            LogUtils.d(TAG, ".setError(error)...");
+            EditTextLogUtils.d(TAG, ".setError(error)...");
         }
         if (error == null) {
             setError(null, null, true, true);
         } else {
-            Drawable dr = mContext.getResources().getDrawable(R.drawable.indicator_input_error);
+            Drawable dr = mContext.getDrawable(R.drawable.indicator_input_error);
 
             dr.setBounds(0, 0, dr.getIntrinsicWidth(), dr.getIntrinsicHeight());
             /*
@@ -124,11 +115,11 @@ public class SetErrorHandler {
 
     public void setError(CharSequence error, Drawable icon, boolean showError, boolean showCompoundDrawableOnRight) {
         if (DEBUG) {
-            LogUtils.d(TAG, ".setError(error, icon, showError, showCompoundDrawableOnRight)...");
+            EditTextLogUtils.d(TAG, ".setError(error, icon, showError, showCompoundDrawableOnRight)...");
         }
         if (icon != null) {
             if (DEBUG) {
-                LogUtils.d(TAG, "...icon is not null...");
+                EditTextLogUtils.d(TAG, "...icon is not null...");
             }
             icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
         }
@@ -137,12 +128,10 @@ public class SetErrorHandler {
         if (mView instanceof TextView && mError != null) {
             if (showCompoundDrawableOnRight) {
                 if (DEBUG) {
-                    LogUtils.d(TAG, "...showing CompoundDrawable on right)...");
+                    EditTextLogUtils.d(TAG, "...showing CompoundDrawable on right)...");
                 }
-                //((TextView) mView).setCompoundDrawables(dr.mDrawableLeft, dr.mDrawableTop, icon, dr.mDrawableBottom);
                 ((TextView) mView).setCompoundDrawables(null, null, icon, null);
             } else {
-                //((TextView) mView).setCompoundDrawables(icon, dr.mDrawableTop, dr.mDrawableRight, dr.mDrawableBottom);
                 ((TextView) mView).setCompoundDrawables(icon, null, null, null);
             }
         }
@@ -167,7 +156,7 @@ public class SetErrorHandler {
 
     public void showError() {
         if (DEBUG) {
-            LogUtils.d(TAG, ".showError()...");
+            EditTextLogUtils.d(TAG, ".showError()...");
         }
         if (mView.getWindowToken() == null) {
             mShowErrorAfterAttach = true;
@@ -189,7 +178,7 @@ public class SetErrorHandler {
         }
 
         if (DEBUG) {
-            LogUtils.d(TAG, "...error: " + mError);
+            EditTextLogUtils.d(TAG, "...error: " + mError);
         }
         TextView tv = (TextView) mPopup.getContentView();
         //tv.setPadding(mErrorPopupPaddingLeft, mErrorPopupPaddingTop, mErrorPopupPaddingRight, mErrorPopupPaddingBottom);
@@ -214,7 +203,6 @@ public class SetErrorHandler {
         int wid = tv.getPaddingLeft() + tv.getPaddingRight();
         int ht = tv.getPaddingTop() + tv.getPaddingBottom();
 
-        //com.android.internal.R.dimen.textview_error_popup_default_width introduced after Gingerbread, only has one variant (240dip)
         int defaultWidthInPixels = mContext.getResources().getDimensionPixelSize(R.dimen.textview_error_popup_default_width);
         Layout l = new StaticLayout(text, tv.getPaint(), defaultWidthInPixels, Layout.Alignment.ALIGN_NORMAL, 1, 0, true);
 
@@ -224,14 +212,14 @@ public class SetErrorHandler {
         }
 
         if (DEBUG) {
-            LogUtils.d(TAG, "max: " + max + ", height: " + l.getHeight());
+            EditTextLogUtils.d(TAG, "max: " + max + ", height: " + l.getHeight());
         }
 
         /*
          * Now set the popup size to be big enough for the text plus the border.
          */
         pop.setWidth(wid + (int) Math.ceil(max));
-        pop.setHeight(ht + l.getHeight());    //TODO: buggy (the 2 shouldnt need to be there)
+        pop.setHeight(ht + l.getHeight());
     }
 
     /**
@@ -243,9 +231,26 @@ public class SetErrorHandler {
          * The "25" is the distance between the point and the right edge
          * of the background
          */
+        final float scale = mView.getResources().getDisplayMetrics().density;
 
         final Drawables dr = mDrawables;
-        return mView.getWidth() - mPopup.getWidth();// - getPaddingRight() - (dr != null ? dr.mDrawableSizeRight : 0) / 2 + 0;
+
+        final int layoutDirection = mView.getLayoutDirection();
+        int errorX;
+        int offset;
+        switch (layoutDirection) {
+            default:
+            case View.LAYOUT_DIRECTION_LTR:
+                offset = -(dr != null ? dr.mDrawableSizeRight : 0) / 2 + (int) (25 * scale + 0.5f);
+                errorX = mView.getWidth() - mPopup.getWidth() -
+                        mView.getPaddingRight() + offset;
+                break;
+            case View.LAYOUT_DIRECTION_RTL:
+                offset = (dr != null ? dr.mDrawableSizeLeft : 0) / 2 - (int) (25 * scale + 0.5f);
+                errorX = mView.getPaddingLeft() + offset;
+                break;
+        }
+        return errorX;
     }
 
     /**
@@ -257,19 +262,34 @@ public class SetErrorHandler {
          * Compound, not extended, because the icon is not clipped
          * if the text height is smaller.
          */
-        int vspace = mBottom - mTop -
-                getCompoundPaddingBottom() - getCompoundPaddingTop();
+        final int compoundPaddingTop = getCompoundPaddingTop();
+        int vspace = mView.getBottom() - mView.getTop() -
+                getCompoundPaddingBottom() - compoundPaddingTop;
 
         final Drawables dr = mDrawables;
-        int icontop = getCompoundPaddingTop()
-                + (vspace - (dr != null ? dr.mDrawableHeightRight : 0)) / 2;
+
+        final int layoutDirection = mView.getLayoutDirection();
+        int height;
+        switch (layoutDirection) {
+            default:
+            case View.LAYOUT_DIRECTION_LTR:
+                height = (dr != null ? dr.mDrawableHeightRight : 0);
+                break;
+            case View.LAYOUT_DIRECTION_RTL:
+                height = (dr != null ? dr.mDrawableHeightLeft : 0);
+                break;
+        }
+
+        int icontop = compoundPaddingTop + (vspace - height) / 2;
 
         /*
          * The "2" is the distance between the point and the top edge
          * of the background.
          */
-        //return icontop + (dr != null ? dr.mDrawableHeightRight : 0) - getHeight() - 2;
-        return 0 - mView.getHeight() / 2;
+        final float scale = mView.getResources().getDisplayMetrics().density;
+        return icontop + height - mView.getHeight() - (int) (2 * scale + 0.5f);
+
+
     }
 
     /**

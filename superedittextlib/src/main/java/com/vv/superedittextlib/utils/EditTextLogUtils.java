@@ -30,7 +30,7 @@ import javax.xml.transform.stream.StreamSource;
  * @author ShenZhenWei
  * @date 2018/7/30
  */
-public class LogUtils {
+public class EditTextLogUtils {
     public static final int V = Log.VERBOSE;
     public static final int D = Log.DEBUG;
     public static final int I = Log.INFO;
@@ -72,7 +72,7 @@ public class LogUtils {
     private static final Config CONFIG = new Config();
     private static ExecutorService sExecutor;
 
-    private LogUtils() {
+    private EditTextLogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

@@ -513,7 +513,6 @@ public class SuperEditText extends AppCompatEditText {
         checkCharactersCount();
         initSafeInputEditText();
         initEditTextShieldeEvent();
-
     }
 
     private void initSafeInputEditText() {
@@ -1015,12 +1014,12 @@ public class SuperEditText extends AppCompatEditText {
                 }
 
                 if (hasFocus) {
-                    if (tempErrorText!=null){
+                    if (tempErrorText != null) {
                         mSetErrorHandler.showError();
                     }
                     floatingLabelAlwaysShown = true;
                 } else {
-                    if (tempErrorText!=null){
+                    if (tempErrorText != null) {
                         mSetErrorHandler.hideError();
                     }
                     floatingLabelAlwaysShown = false;
@@ -1537,16 +1536,19 @@ public class SuperEditText extends AppCompatEditText {
         // draw the underline
         if (!hideUnderline) {
             lineStartY += bottomSpacing;
-            if (!isInternalValid()) { // not valid
+            if (!isInternalValid()) {
+                // not valid
                 paint.setColor(errorColor);
                 canvas.drawRect(startX, lineStartY, endX, lineStartY + getPixel(2), paint);
-            } else if (!isEnabled()) { // disabled
+            } else if (!isEnabled()) {
+                // disabled
                 paint.setColor(underlineColor != -1 ? underlineColor : baseColor & 0x00ffffff | 0x44000000);
                 float interval = getPixel(1);
                 for (float xOffset = 0; xOffset < getWidth(); xOffset += interval * 3) {
                     canvas.drawRect(startX + xOffset, lineStartY, startX + xOffset + interval, lineStartY + getPixel(1), paint);
                 }
-            } else if (hasFocus()) { // focused
+            } else if (hasFocus()) {
+                // focused
                 paint.setColor(primaryColor);
                 canvas.drawRect(startX, lineStartY, endX, lineStartY + getPixel(2), paint);
             } else { // normal
