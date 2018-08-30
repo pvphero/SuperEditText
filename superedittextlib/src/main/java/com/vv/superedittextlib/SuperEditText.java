@@ -373,7 +373,8 @@ public class SuperEditText extends AppCompatEditText {
         mSetErrorHandler = new SetErrorHandler(context, this);
 
         iconSize = getPixel(32);
-        iconOuterWidth = getPixel(48);
+        iconOuterWidth = getPixel(32);
+
         iconOuterHeight = getPixel(32);
 
         bottomSpacing = getResources().getDimensionPixelSize(R.dimen.inner_components_spacing);
@@ -491,8 +492,7 @@ public class SuperEditText extends AppCompatEditText {
         int padding = paddingsTypedArray.getDimensionPixelSize(0, 0);
         innerPaddingLeft = paddingsTypedArray.getDimensionPixelSize(1, padding);
         innerPaddingTop = paddingsTypedArray.getDimensionPixelSize(2, padding);
-//        innerPaddingRight = paddingsTypedArray.getDimensionPixelSize(3, padding);
-        innerPaddingRight = mSetErrorHandler.getCompoundPaddingRight();
+        innerPaddingRight = paddingsTypedArray.getDimensionPixelSize(3, padding);
 //        innerPaddingBottom = paddingsTypedArray.getDimensionPixelSize(4, padding);
         innerPaddingBottom = mSetErrorHandler.getCompoundPaddingBottom();
         paddingsTypedArray.recycle();
@@ -887,18 +887,7 @@ public class SuperEditText extends AppCompatEditText {
      * Set paddings to the correct values
      */
     private void correctPaddings() {
-        int buttonsWidthLeft = 0, buttonsWidthRight = 0;
-        int buttonsWidth = iconOuterWidth * getButtonsCount();
-        if (isRTL()) {
-            buttonsWidthLeft = buttonsWidth;
-        } else {
-            buttonsWidthRight = buttonsWidth;
-        }
-        super.setPadding(innerPaddingLeft + extraPaddingLeft + buttonsWidthLeft, innerPaddingTop + extraPaddingTop, innerPaddingRight + extraPaddingRight + buttonsWidthRight, innerPaddingBottom + extraPaddingBottom);
-    }
-
-    private int getButtonsCount() {
-        return isShowClearButton() ? 1 : 0;
+        super.setPadding(innerPaddingLeft + extraPaddingLeft, innerPaddingTop + extraPaddingTop, innerPaddingRight + extraPaddingRight, innerPaddingBottom + extraPaddingBottom);
     }
 
     @Override
@@ -1526,10 +1515,9 @@ public class SuperEditText extends AppCompatEditText {
             if (isRTL()) {
                 buttonLeft = startX;
             } else {
-                buttonLeft = endX - iconOuterWidth;
+                buttonLeft = getScrollX() + getWidth() - mSetErrorHandler.getCompoundPaddingRight() - iconOuterWidth;
             }
             Bitmap clearButtonBitmap = clearButtonBitmaps[0];
-            buttonLeft += (iconOuterWidth - clearButtonBitmap.getWidth()) / 2;
             int iconTop = lineStartY + bottomSpacing - iconOuterHeight + (iconOuterHeight - clearButtonBitmap.getHeight()) / 2;
             canvas.drawBitmap(clearButtonBitmap, buttonLeft, iconTop, paint);
         }
@@ -1551,10 +1539,10 @@ public class SuperEditText extends AppCompatEditText {
             } else if (hasFocus()) {
                 // focused
                 paint.setColor(primaryColor);
-                canvas.drawRect(startX, lineStartY, endX, lineStartY + getPixel(2), paint);
+                canvas.drawRect(startX, lineStartY, getScrollX() + getWidth() - mSetErrorHandler.getCompoundPaddingRight(), lineStartY + getPixel(2), paint);
             } else { // normal
                 paint.setColor(underlineColor != -1 ? underlineColor : baseColor & 0x00ffffff | 0x1E000000);
-                canvas.drawRect(startX, lineStartY, endX, lineStartY + getPixel(1), paint);
+                canvas.drawRect(startX, lineStartY, getScrollX() + getWidth() - mSetErrorHandler.getCompoundPaddingRight(), lineStartY + getPixel(1), paint);
             }
         }
 
@@ -1738,7 +1726,7 @@ public class SuperEditText extends AppCompatEditText {
         float x = event.getX();
         float y = event.getY();
         int startX = getScrollX() + (iconLeftBitmaps == null ? 0 : (iconOuterWidth + iconPadding));
-        int endX = getScrollX() + (iconRightBitmaps == null ? getWidth() : getWidth() - iconOuterWidth - iconPadding);
+        int endX = getScrollX() + getWidth() - mSetErrorHandler.getCompoundPaddingRight();
         int buttonLeft;
         if (isRTL()) {
             buttonLeft = startX;
