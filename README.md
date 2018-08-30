@@ -89,8 +89,6 @@ app:suet_floatingLabelText="xxxx"
 
 
 ## Thanks to
-
-## Thanks to
 [MaterialEditText](https://github.com/rengwuxian/MaterialEditText)
 
 [Sven Wong](https://wanghao200906.github.io/)
