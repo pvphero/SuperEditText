@@ -26,6 +26,7 @@
             app:suet_floatingLableTextAutoFontSizeMaxLines="3"
             app:suet_isSafeInputText="true"
             app:suet_clearButton="true"
+            android:enabled="false"
             app:suet_helperText="helper is here" />
 
     </android.support.design.widget.TextInputLayout>
@@ -72,6 +73,7 @@
             android:id="@+id/super_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:hint="请填写客户的工作单位全称" />
 
     </android.support.design.widget.TextInputLayout>

@@ -256,6 +256,11 @@ public class SuperEditText extends AppCompatEditText {
     private boolean hideUnderline;
 
     /**
+     * Do not click on the line is a dotted line
+     */
+    private boolean isHideUndeLineDotted;
+
+    /**
      * Underline's color
      */
     private int underlineColor;
@@ -441,6 +446,7 @@ public class SuperEditText extends AppCompatEditText {
         floatingLabelAnimating = typedArray.getBoolean(R.styleable.SuperEditText_suet_floatingLabelAnimating, true);
         bottomTextSize = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_bottomTextSize, getResources().getDimensionPixelSize(R.dimen.bottom_text_size));
         hideUnderline = typedArray.getBoolean(R.styleable.SuperEditText_suet_hideUnderline, false);
+        isHideUndeLineDotted = typedArray.getBoolean(R.styleable.SuperEditText_suet_isHideUnderlineDotted, false);
         underlineColor = typedArray.getColor(R.styleable.SuperEditText_suet_underlineColor, -1);
         autoValidate = typedArray.getBoolean(R.styleable.SuperEditText_suet_autoValidate, true);
         iconLeftBitmaps = generateIconBitmaps(typedArray.getResourceId(R.styleable.SuperEditText_suet_iconLeft, -1));
@@ -1531,10 +1537,15 @@ public class SuperEditText extends AppCompatEditText {
                 canvas.drawRect(startX, lineStartY, endX, lineStartY + getPixel(2), paint);
             } else if (!isEnabled()) {
                 // disabled
-                paint.setColor(underlineColor != -1 ? underlineColor : baseColor & 0x00ffffff | 0x44000000);
-                float interval = getPixel(1);
-                for (float xOffset = 0; xOffset < getWidth(); xOffset += interval * 3) {
-                    canvas.drawRect(startX + xOffset, lineStartY, startX + xOffset + interval, lineStartY + getPixel(1), paint);
+                if (isHideUndeLineDotted) {
+                    paint.setColor(underlineColor != -1 ? underlineColor : baseColor & 0x00ffffff | 0x44000000);
+                    float interval = getPixel(1);
+                    for (float xOffset = 0; xOffset < getWidth(); xOffset += interval * 3) {
+                        canvas.drawRect(startX + xOffset, lineStartY, startX + xOffset + interval, lineStartY + getPixel(1), paint);
+                    }
+                } else {
+                    paint.setColor(underlineColor != -1 ? underlineColor : baseColor & 0x00ffffff | 0x1E000000);
+                    canvas.drawRect(startX, lineStartY, getScrollX() + getWidth() - mSetErrorHandler.getCompoundPaddingRight(), lineStartY + getPixel(1), paint);
                 }
             } else if (hasFocus()) {
                 // focused
