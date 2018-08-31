@@ -88,10 +88,47 @@ app:suet_floatingLabelText="xxxx"
 ![1212](http://paynnyvep.bkt.clouddn.com/2018-08-30-1212.png)
 
 
+### 4. 设置清楚button
+
+```
+app:suet_clearButton="true"
+```
+
+在APP里面的代码
+
+```xml
+<android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="身份证号码* "
+        app:hintAnimationEnabled="true"
+        app:hintTextAppearance="@style/HintTextAppearance">
+
+        <com.vv.superedittextlib.SuperEditText
+            android:id="@+id/super_edittext2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:suet_floatingLabel="normal"
+            app:suet_floatingLabelText="请填写客户的工作单位全称； *自雇/个体户申请人：+\nSE+单位/个体名称 *农民/务农申请人：FM+雇主/能够证明客户职业的联系人姓名 *自由职业者申请人：FR+能够证明客户职业的联系人姓名"
+            app:suet_floatingLableTextAutoFontSizeMaxLines="3"
+            app:suet_isSafeInputText="true"
+            app:suet_clearButton="true"
+            app:suet_helperText="helper is here" />
+
+    </android.support.design.widget.TextInputLayout>
+```
+
+运行效果
+
+![device-2018-08-31-102657](http://paynnyvep.bkt.clouddn.com/2018-08-31-device-2018-08-31-102657.png)
+
+
+
 ## Thanks to
 [MaterialEditText](https://github.com/rengwuxian/MaterialEditText)
-
 [Sven Wong](https://wanghao200906.github.io/)
+
 
 ## License
 
@@ -108,9 +145,6 @@ app:suet_floatingLabelText="xxxx"
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-
-
 
 
 
