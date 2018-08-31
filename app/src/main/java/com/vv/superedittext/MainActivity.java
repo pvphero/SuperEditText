@@ -10,12 +10,13 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mEditText;
     private EditText editText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mEditText=findViewById(R.id.super_edittext);
-        editText=findViewById(R.id.super_edittext2);
+        mEditText = findViewById(R.id.super_edittext);
+        editText = findViewById(R.id.super_edittext2);
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -24,7 +25,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mEditText.setError("身份证号码错误!");
+                if (s.length() > 6) {
+                    mEditText.setError(null);
+                } else {
+                    mEditText.setError("身份证号码错误!");
+                }
             }
 
             @Override
@@ -41,7 +46,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                editText.setError("身份证号码错误!");
+
+                if (s.length() > 6) {
+                    editText.setError(null);
+                } else {
+                    editText.setError("身份证号码错误!");
+                }
             }
 
             @Override

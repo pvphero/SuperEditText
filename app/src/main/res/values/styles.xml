@@ -15,4 +15,14 @@
         <attr name="errorMessageAboveBackground" format="reference" />
     </declare-styleable>
 
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="errorMessageBackground">@drawable/popup_inline_error_holo_light_am</item>
+        <item name="errorMessageAboveBackground">@drawable/popup_inline_error_above_holo_light_am
+        </item>
+    </style>
+
 </resources>

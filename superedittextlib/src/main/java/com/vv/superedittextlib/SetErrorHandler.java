@@ -69,7 +69,7 @@ public class SetErrorHandler {
             EditTextLogUtils.d(TAG, ".setError(error)...");
         }
         if (error == null) {
-            setError(null, null, true, true);
+            setError(null, null, false, true);
         } else {
             Drawable dr = mContext.getDrawable(R.drawable.indicator_input_error);
 
@@ -124,6 +124,7 @@ public class SetErrorHandler {
                 }
                 if (mView instanceof TextView) {
                     ((TextView) mView).setCompoundDrawables(null, null, null, null);
+                    setCompoundDrawables(null, null, null, null);
                 }
                 mPopup = null;
             }
