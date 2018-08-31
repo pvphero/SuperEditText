@@ -4,20 +4,24 @@ ext {
 
     verMajor = 1
     verMinor = 0
-    verPatch = 3
+    verPatch = 1
 
     bintray = [
-            artifactId    : 'superedittextlib',
-            uploadName    : 'SuperEditText',
+            artifactId    : 'edittextlib',
+            uploadName    : 'AndroidSuperEditText',
 
             publishVersion: "${verMajor}.${verMinor}.${verPatch}",
-            repoName      : 'SuperEditText',
+            repoName      : 'pvphero',
             groupId       : 'com.pvphero',
             desc          : '功能很强大的EditText控件,提示文字可以自动缩放',
             website       : 'https://github.com/pvphero/SuperEditText',
-            repository    : 'https://github.com/pvphero/SuperEditText',
+            repository    : 'https://github.com/pvphero/SuperEditText.git',
             licences      : ['Apache-2.0'],
+            licencesUrl   : 'http://www.apache.org/licenses/LICENSE-2.0.txt',
             dryRun        : false,
+            bintrayId     : 'impvphero',
+            bintrayName   : 'pvphero',
+            bintrayEmail  : 'chouduoduo@23333@gmail.com',
             user          : properties.getProperty('bintray.user'),
             key           : properties.getProperty('bintray.key')
     ]

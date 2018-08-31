@@ -28,5 +28,6 @@ dependencies {
 
     implementation project(':superedittextlib')
     implementation 'com.android.support:design:28.0.0+'
+//    implementation 'com.pvphero:superedittextlib:1.0.7'
 //    implementation(name:'superedittextlib-release',ext:'aar')
 }
