@@ -26,7 +26,6 @@
             app:suet_floatingLableTextAutoFontSizeMaxLines="3"
             app:suet_isSafeInputText="true"
             app:suet_clearButton="true"
-            android:enabled="false"
             app:suet_helperText="helper is here" />
 
     </android.support.design.widget.TextInputLayout>

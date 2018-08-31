@@ -41,12 +41,6 @@
         <attr name="suet_underlineColor" format="color" />
         <!-- Auto validate -->
         <attr name="suet_autoValidate" format="boolean" />
-        <!-- Left icon -->
-        <attr name="suet_iconLeft" format="reference" />
-        <!-- Right icon -->
-        <attr name="suet_iconRight" format="reference" />
-        <!-- Padding between icon(s) and the main area. 8dp by default. -->
-        <attr name="suet_iconPadding" format="dimension" />
         <!-- Clear button -->
         <attr name="suet_clearButton" format="boolean" />
         <!-- The floating label's text size. 12sp by default. -->

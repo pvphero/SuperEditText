@@ -76,16 +76,6 @@ public class SuperEditText extends AppCompatEditText {
     private int extraPaddingBottom;
 
     /**
-     * the extra spacing between the main text and the left, actually for the left icon.
-     */
-    private int extraPaddingLeft;
-
-    /**
-     * the extra spacing between the main text and the right, actually for the right icon.
-     */
-    private int extraPaddingRight;
-
-    /**
      * the floating label's text size.
      */
     private int floatingLabelTextSize;
@@ -286,16 +276,6 @@ public class SuperEditText extends AppCompatEditText {
     private boolean checkCharactersCountAtBeginning;
 
     /**
-     * Left Icon
-     */
-    private Bitmap[] iconLeftBitmaps;
-
-    /**
-     * Right Icon
-     */
-    private Bitmap[] iconRightBitmaps;
-
-    /**
      * Clear Button
      */
     private Bitmap[] clearButtonBitmaps;
@@ -335,7 +315,6 @@ public class SuperEditText extends AppCompatEditText {
     private int iconSize;
     private int iconOuterWidth;
     private int iconOuterHeight;
-    private int iconPadding;
     private boolean clearButtonTouched;
     private boolean clearButtonClicking;
     private ColorStateList textColorStateList;
@@ -449,11 +428,8 @@ public class SuperEditText extends AppCompatEditText {
         isHideUndeLineDotted = typedArray.getBoolean(R.styleable.SuperEditText_suet_isHideUnderlineDotted, false);
         underlineColor = typedArray.getColor(R.styleable.SuperEditText_suet_underlineColor, -1);
         autoValidate = typedArray.getBoolean(R.styleable.SuperEditText_suet_autoValidate, true);
-        iconLeftBitmaps = generateIconBitmaps(typedArray.getResourceId(R.styleable.SuperEditText_suet_iconLeft, -1));
-        iconRightBitmaps = generateIconBitmaps(typedArray.getResourceId(R.styleable.SuperEditText_suet_iconRight, -1));
         showClearButton = typedArray.getBoolean(R.styleable.SuperEditText_suet_clearButton, false);
         clearButtonBitmaps = generateIconBitmaps(R.drawable.met_ic_clear);
-        iconPadding = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_iconPadding, getPixel(16));
         floatingLabelAlwaysShown = typedArray.getBoolean(R.styleable.SuperEditText_suet_floatingLabelAlwaysShown, false);
         helperTextAlwaysShown = typedArray.getBoolean(R.styleable.SuperEditText_suet_helperTextAlwaysShown, false);
         validateOnFocusLost = typedArray.getBoolean(R.styleable.SuperEditText_suet_validateOnFocusLost, false);
@@ -603,36 +579,6 @@ public class SuperEditText extends AppCompatEditText {
 
     private Typeface getCustomTypeface(@NonNull String fontPath) {
         return Typeface.createFromAsset(getContext().getAssets(), fontPath);
-    }
-
-    public void setIconLeft(@DrawableRes int res) {
-        iconLeftBitmaps = generateIconBitmaps(res);
-        initPadding();
-    }
-
-    public void setIconLeft(Drawable drawable) {
-        iconLeftBitmaps = generateIconBitmaps(drawable);
-        initPadding();
-    }
-
-    public void setIconLeft(Bitmap bitmap) {
-        iconLeftBitmaps = generateIconBitmaps(bitmap);
-        initPadding();
-    }
-
-    public void setIconRight(@DrawableRes int res) {
-        iconRightBitmaps = generateIconBitmaps(res);
-        initPadding();
-    }
-
-    public void setIconRight(Drawable drawable) {
-        iconRightBitmaps = generateIconBitmaps(drawable);
-        initPadding();
-    }
-
-    public void setIconRight(Bitmap bitmap) {
-        iconRightBitmaps = generateIconBitmaps(bitmap);
-        initPadding();
     }
 
     public boolean isShowClearButton() {
@@ -856,8 +802,6 @@ public class SuperEditText extends AppCompatEditText {
         textPaint.setTextSize(bottomTextSize);
         Paint.FontMetrics textMetrics = textPaint.getFontMetrics();
         extraPaddingBottom = (int) ((textMetrics.descent - textMetrics.ascent) * currentBottomLines) + (hideUnderline ? bottomSpacing : bottomSpacing * 2);
-        extraPaddingLeft = iconLeftBitmaps == null ? 0 : (iconOuterWidth + iconPadding);
-        extraPaddingRight = iconRightBitmaps == null ? 0 : (iconOuterWidth + iconPadding);
         correctPaddings();
     }
 
@@ -893,7 +837,7 @@ public class SuperEditText extends AppCompatEditText {
      * Set paddings to the correct values
      */
     private void correctPaddings() {
-        super.setPadding(innerPaddingLeft + extraPaddingLeft, innerPaddingTop + extraPaddingTop, innerPaddingRight + extraPaddingRight, innerPaddingBottom + extraPaddingBottom);
+        super.setPadding(innerPaddingLeft, innerPaddingTop + extraPaddingTop, innerPaddingRight, innerPaddingBottom + extraPaddingBottom);
     }
 
     @Override
@@ -1496,23 +1440,9 @@ public class SuperEditText extends AppCompatEditText {
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
 
-        int startX = getScrollX() + (iconLeftBitmaps == null ? 0 : (iconOuterWidth + iconPadding)) + getPaddingLeft();
-        int endX = getScrollX() + (iconRightBitmaps == null ? getWidth() : getWidth() - iconOuterWidth - iconPadding) - getPaddingRight();
+        int startX = getScrollX() + getPaddingLeft();
+        int endX = getScrollX() + getWidth() - getPaddingRight();
         int lineStartY = getScrollY() + getHeight() - getPaddingBottom() - mSetErrorHandler.getCompoundPaddingBottom() / 2;
-        // draw the icon(s)
-        paint.setAlpha(255);
-        if (iconLeftBitmaps != null) {
-            Bitmap icon = iconLeftBitmaps[!isInternalValid() ? 3 : !isEnabled() ? 2 : hasFocus() ? 1 : 0];
-            int iconLeft = startX - iconPadding - iconOuterWidth + (iconOuterWidth - icon.getWidth()) / 2;
-            int iconTop = lineStartY + bottomSpacing - iconOuterHeight + (iconOuterHeight - icon.getHeight()) / 2;
-            canvas.drawBitmap(icon, iconLeft, iconTop, paint);
-        }
-        if (iconRightBitmaps != null) {
-            Bitmap icon = iconRightBitmaps[!isInternalValid() ? 3 : !isEnabled() ? 2 : hasFocus() ? 1 : 0];
-            int iconRight = endX + iconPadding + (iconOuterWidth - icon.getWidth()) / 2;
-            int iconTop = lineStartY + bottomSpacing - iconOuterHeight + (iconOuterHeight - icon.getHeight()) / 2;
-            canvas.drawBitmap(icon, iconRight, iconTop, paint);
-        }
 
         // draw the clear button
         if (hasFocus() && showClearButton && !TextUtils.isEmpty(getText()) && isEnabled()) {
@@ -1736,7 +1666,7 @@ public class SuperEditText extends AppCompatEditText {
     private boolean insideClearButton(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
-        int startX = getScrollX() + (iconLeftBitmaps == null ? 0 : (iconOuterWidth + iconPadding));
+        int startX = getScrollX();
         int endX = getScrollX() + getWidth() - mSetErrorHandler.getCompoundPaddingRight();
         int buttonLeft;
         if (isRTL()) {

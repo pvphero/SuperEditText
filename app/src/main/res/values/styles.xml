@@ -1,8 +1,12 @@
 <resources>
+
+    <!-- Base application theme. -->
+
     <style name="HintTextAppearance">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#ff0000</item>
     </style>
+
     <!-- These are the standard attributes that make up a complete theme. -->
     <declare-styleable name="EditTextTheme">
         <!-- Popup text displayed in TextView when setError is used. -->
@@ -11,13 +15,4 @@
         <attr name="errorMessageAboveBackground" format="reference" />
     </declare-styleable>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="errorMessageBackground">@drawable/popup_inline_error_holo_light_am</item>
-        <item name="errorMessageAboveBackground">@drawable/popup_inline_error_above_holo_light_am
-        </item>
-    </style>
 </resources>

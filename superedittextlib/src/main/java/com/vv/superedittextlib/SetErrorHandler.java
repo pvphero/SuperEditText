@@ -31,10 +31,6 @@ public class SetErrorHandler {
     private int mPaddingBottom;
     private int mPaddingLeft;
     private int mPaddingRight;
-    private int mErrorPopupPaddingTop;
-    private int mErrorPopupPaddingBottom;
-    private int mErrorPopupPaddingLeft;
-    private int mErrorPopupPaddingRight;
 
     class Drawables {
         final Rect mCompoundRect = new Rect();
@@ -68,22 +64,6 @@ public class SetErrorHandler {
         mPaddingRight = mView.getPaddingRight();
     }
 
-    //LD - custom..TODO: remove this
-    public void setErrorPopupPadding(int left, int top, int right, int bottom) {
-        mErrorPopupPaddingTop = top;
-        mErrorPopupPaddingBottom = bottom;
-        mErrorPopupPaddingLeft = left;
-        mErrorPopupPaddingRight = right;
-    }
-
-    /**
-     * Sets the right-hand compound drawable of the TextView to the "error"
-     * icon and sets an error message that will be displayed in a popup when
-     * the TextView has focus.  The icon and error message will be reset to
-     * null when any key events cause changes to the TextView's text.  If the
-     * <code>error</code> is <code>null</code>, the error message and icon
-     * will be cleared.
-     */
     public void setError(CharSequence error) {
         if (DEBUG) {
             EditTextLogUtils.d(TAG, ".setError(error)...");
@@ -121,7 +101,6 @@ public class SetErrorHandler {
             if (DEBUG) {
                 EditTextLogUtils.d(TAG, "...icon is not null...");
             }
-            icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
         }
         mError = TextUtils.stringOrSpannedString(error);
         mErrorWasChanged = true;
