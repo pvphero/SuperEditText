@@ -31,6 +31,8 @@ public class SetErrorHandler {
     private int mPaddingBottom;
     private int mPaddingLeft;
     private int mPaddingRight;
+    private int mInnerPaddingTop;
+
 
     class Drawables {
         final Rect mCompoundRect = new Rect();
@@ -64,7 +66,8 @@ public class SetErrorHandler {
         mPaddingRight = mView.getPaddingRight();
     }
 
-    public void setError(CharSequence error) {
+    public void setError(CharSequence error, int innerPaddingTop) {
+        mInnerPaddingTop = innerPaddingTop;
         if (DEBUG) {
             EditTextLogUtils.d(TAG, ".setError(error)...");
         }
@@ -269,7 +272,7 @@ public class SetErrorHandler {
          * of the background.
          */
         final float scale = mView.getResources().getDisplayMetrics().density;
-        return icontop + height / 2 - mView.getHeight() - (int) (2 * scale + 0.5f);
+        return icontop + height / 2 + mInnerPaddingTop - mView.getHeight() - (int) (2 * scale + 0.5f);
 
 
     }
@@ -425,7 +428,7 @@ public class SetErrorHandler {
     }
 
     /**
-     * Resets the mErrorWasChanged flag, so that future calls to {@link #setError(CharSequence)}
+     * Resets the mErrorWasChanged flag, so that future calls to {@link #setError(CharSequence, int)}
      * can be recorded.
      *
      * @hide

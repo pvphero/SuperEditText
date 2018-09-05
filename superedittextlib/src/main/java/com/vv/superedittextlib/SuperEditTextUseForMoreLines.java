@@ -28,7 +28,6 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.SingleLineTransformationMethod;
 import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -38,12 +37,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 
-import com.vv.superedittextlib.validation.METLengthChecker;
-import com.vv.superedittextlib.validation.METValidator;
 import com.vv.superedittextlib.utils.Colors;
 import com.vv.superedittextlib.utils.Density;
+import com.vv.superedittextlib.utils.EditTextLogUtils;
+import com.vv.superedittextlib.validation.METLengthChecker;
+import com.vv.superedittextlib.validation.METValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +53,9 @@ import java.util.regex.Pattern;
  * @author pvphero
  * @date 2018/8/27
  */
-public class SuperEditText extends AppCompatEditText {
+public class SuperEditTextUseForMoreLines extends AppCompatEditText {
 
+    private static final String TAG = "SuperEditText";
 
     @IntDef({FLOATING_LABEL_NONE, FLOATING_LABEL_NORMAL, FLOATING_LABEL_HIGHLIGHT})
     public @interface FloatingLabelType {
@@ -332,19 +332,23 @@ public class SuperEditText extends AppCompatEditText {
     private METLengthChecker lengthChecker;
 
     private SetErrorHandler mSetErrorHandler;
+    private float mFloatLableMinTextSize;
+    private static final int DEFAULT_MIN_TEXT_SIZE = 8; //sp
 
-    public SuperEditText(Context context) {
+    private int mInnerPaddingTop;
+
+    public SuperEditTextUseForMoreLines(Context context) {
         super(context);
         init(context, null);
     }
 
-    public SuperEditText(Context context, AttributeSet attrs) {
+    public SuperEditTextUseForMoreLines(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SuperEditText(Context context, AttributeSet attrs, int style) {
+    public SuperEditTextUseForMoreLines(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
         init(context, attrs);
     }
@@ -355,6 +359,7 @@ public class SuperEditText extends AppCompatEditText {
         }
 
         mSetErrorHandler = new SetErrorHandler(context, this);
+        mFloatLableMinTextSize = getPixel(DEFAULT_MIN_TEXT_SIZE);
 
         iconSize = getPixel(32);
         iconOuterWidth = getPixel(32);
@@ -397,7 +402,7 @@ public class SuperEditText extends AppCompatEditText {
         }
 
         primaryColor = typedArray.getColor(R.styleable.SuperEditText_suet_primaryColor, defaultPrimaryColor);
-        setFloatingLabelInternal(typedArray.getInt(R.styleable.SuperEditText_suet_floatingLabel, 0));
+        setFloatingLabelInternal(typedArray.getInt(R.styleable.SuperEditText_suet_floatingLabel, 1));
         errorColor = typedArray.getColor(R.styleable.SuperEditText_suet_errorColor, Color.parseColor("#e7492E"));
         minCharacters = typedArray.getInt(R.styleable.SuperEditText_suet_minCharacters, 0);
         maxCharacters = typedArray.getInt(R.styleable.SuperEditText_suet_maxCharacters, 0);
@@ -446,6 +451,7 @@ public class SuperEditText extends AppCompatEditText {
         isAllowTextIsSelectable = typedArray.getBoolean(R.styleable.SuperEditText_suet_isTextIsSelectable, true);
         isAllowSelectionMode = typedArray.getBoolean(R.styleable.SuperEditText_suet_isSelectionActionMode, true);
         isSafeInputText = typedArray.getBoolean(R.styleable.SuperEditText_suet_isSafeInputText, false);
+        mInnerPaddingTop = typedArray.getInteger(R.styleable.SuperEditText_suet_innerPaddingTop, 0);
 
         switch (floatLableTextLayoutAlign) {
             case ALIGN_NORMAL:
@@ -798,7 +804,8 @@ public class SuperEditText extends AppCompatEditText {
     }
 
     private void initPadding() {
-        extraPaddingTop = floatingLabelEnabled ? floatingLabelTextSize + floatingLabelPadding : floatingLabelPadding;
+        int lableTextPaddingTop = (int) (mFloatLableMinTextSize * getFloatLableTextMaxLines()) + getPixel(30);
+        extraPaddingTop = floatingLabelEnabled ? lableTextPaddingTop + floatingLabelPadding : floatingLabelPadding;
         textPaint.setTextSize(bottomTextSize);
         Paint.FontMetrics textMetrics = textPaint.getFontMetrics();
         extraPaddingBottom = (int) ((textMetrics.descent - textMetrics.ascent) * currentBottomLines) + (hideUnderline ? bottomSpacing : bottomSpacing * 2);
@@ -1180,7 +1187,7 @@ public class SuperEditText extends AppCompatEditText {
 //        if (adjustBottomLines()) {
 //            postInvalidate();
 //        }
-        mSetErrorHandler.setError(errorText, getPixel(0));
+        mSetErrorHandler.setError(errorText, getPixel(mInnerPaddingTop));
     }
 
     @Override
@@ -1286,7 +1293,7 @@ public class SuperEditText extends AppCompatEditText {
      * @param validator Validator to add
      * @return This instance, for easy chaining
      */
-    public SuperEditText addValidator(METValidator validator) {
+    public SuperEditTextUseForMoreLines addValidator(METValidator validator) {
         if (validators == null) {
             this.validators = new ArrayList<>();
         }
@@ -1355,9 +1362,8 @@ public class SuperEditText extends AppCompatEditText {
         if (!isFloatLableTextMeasure) {
             return;
         }
-
-        floatLableTextWidthLimit = getMeasuredWidth() - getCompoundPaddingLeft() - getCompoundPaddingRight();
-        floatLableTextHeightLimit = getMeasuredHeight() - getCompoundPaddingBottom() - getCompoundPaddingTop();
+        floatLableTextWidthLimit = getMeasuredWidth();
+        floatLableTextHeightLimit = (int) (mFloatLableMinTextSize * getFloatLableTextMaxLines());
         floatLableTextContent = getFloatingLabelText();
         setNewFloatLableText(floatLableTextWidthLimit, floatLableTextHeightLimit);
     }
@@ -1366,12 +1372,15 @@ public class SuperEditText extends AppCompatEditText {
         if (floatLableTextWidthLimit >= 0 && floatLableTextHeightLimit >= 0 && !TextUtils.isEmpty(floatLableTextContent)) {
             TextPaint mPaint = new TextPaint(getPaint());
             newFloatLableTextSize = setNewFloatLableTextSize(floatLableTextContent.toString().trim(), floatLableTextWidthLimit, floatLableTextHeightLimit, mPaint, floatLableTextAlignment);
+//            if (newFloatLableTextSize < DEFAULT_MIN_TEXT_SIZE) {
+//                newFloatLableTextSize = DEFAULT_MIN_TEXT_SIZE;
+//            }
         }
         changeFloatLableTextSize(newFloatLableTextSize);
     }
 
     private void changeFloatLableTextSize(float newFloatLableTextSize) {
-        textPaint.setTextSize(newFloatLableTextSize);
+        setFloatingLabelTextSize((int) newFloatLableTextSize);
     }
 
     private float setNewFloatLableTextSize(String textContent, int widthLimit, int heightLimit, TextPaint paint, Layout.Alignment alignment) {
@@ -1387,6 +1396,7 @@ public class SuperEditText extends AppCompatEditText {
         StaticLayout heightStaticLayout = getStaticLayout(textContent, alignment, paint, floatLableTextWidthLimit, floatLableTextCacheTargetTextSize);
         int cacheHeight = heightStaticLayout.getHeight();
         int cacheLineCount = heightStaticLayout.getLineCount();
+        EditTextLogUtils.i(TAG, "cacheLineCount:" + cacheLineCount);
         int line = getFloatLableTextMaxLines();
 
         if (line <= Integer.MAX_VALUE) {
@@ -1400,14 +1410,17 @@ public class SuperEditText extends AppCompatEditText {
             while (line < cacheLineCount && floatLableTextCacheTargetTextSize > floatLableTextMinSize) {
                 floatLableTextCacheTargetTextSize = Math.max(floatLableTextCacheTargetTextSize - 1, floatLableTextMinSize);
                 cacheLineCount = getStaticLayout(textContent, alignment, paint, width, floatLableTextCacheTargetTextSize).getLineCount();
+                EditTextLogUtils.i(TAG, "变化中的cacheLineCount:" + cacheLineCount + "_floatLableTextCacheTargetTextSize:" + floatLableTextCacheTargetTextSize);
             }
 
             cacheHeight = getStaticLayout(textContent, alignment, paint, width, floatLableTextCacheTargetTextSize).getHeight();
-
+            EditTextLogUtils.i(TAG, "最开始的cacheHeight:" + cacheHeight);
             while (cacheHeight > height && floatLableTextCacheTargetTextSize > floatLableTextMinSize) {
                 floatLableTextCacheTargetTextSize = Math.max(floatLableTextCacheTargetTextSize - 1, floatLableTextMinSize);
                 cacheHeight = getStaticLayout(textContent, alignment, paint, width, floatLableTextCacheTargetTextSize).getHeight();
+                EditTextLogUtils.i(TAG, "变化的cacheHeight:" + cacheHeight + "_floatLableTextCacheTargetTextSize:" + floatLableTextCacheTargetTextSize);
             }
+            EditTextLogUtils.i(TAG, "最终的cacheHeight:" + cacheHeight + "_limtHeight" + (int) (mFloatLableMinTextSize * getFloatLableTextMaxLines()));
         }
         return floatLableTextCacheTargetTextSize;
     }
@@ -1416,18 +1429,6 @@ public class SuperEditText extends AppCompatEditText {
         if (canvas != null) {
             getStaticLayout(textContent, alignment, paint, width, paint.getTextSize()).draw(canvas);
         }
-    }
-
-    private static int getMaxLines(TextView view) {
-        int maxLines = 1; // No limit (Integer.MAX_VALUE also means no limit)
-        TransformationMethod method = view.getTransformationMethod();
-        if (method != null && method instanceof SingleLineTransformationMethod) {
-            maxLines = 1;
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            // setMaxLines() and getMaxLines() are only available on android-16+
-            maxLines = view.getMaxLines();
-        }
-        return maxLines;
     }
 
     private StaticLayout getStaticLayout(CharSequence source, Layout.Alignment align, TextPaint paint, int width, float textSize) {
@@ -1443,7 +1444,6 @@ public class SuperEditText extends AppCompatEditText {
         int startX = getScrollX() + getPaddingLeft();
         int endX = getScrollX() + getWidth() - getPaddingRight();
         int lineStartY = getScrollY() + getHeight() - getPaddingBottom() - mSetErrorHandler.getCompoundPaddingBottom() / 2;
-
         // draw the clear button
         if (hasFocus() && showClearButton && !TextUtils.isEmpty(getText()) && isEnabled()) {
             paint.setAlpha(255);
@@ -1517,6 +1517,7 @@ public class SuperEditText extends AppCompatEditText {
         // draw the floating label
         if (floatingLabelEnabled && !TextUtils.isEmpty(floatingLabelText)) {
             textPaint.setTextSize(newFloatLableTextSize);
+            setFloatingLabelTextSize((int) newFloatLableTextSize);
             // calculate the text color
             textPaint.setColor((Integer) focusEvaluator.evaluate(focusFraction * (isEnabled() ? 1 : 0), floatingLabelTextColor != -1 ? floatingLabelTextColor : (baseColor & 0x00ffffff | 0x44000000), primaryColor));
 
