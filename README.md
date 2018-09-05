@@ -1,15 +1,23 @@
 # SuperEditText使用说明
 
 ## Download
-[ ![Download](https://api.bintray.com/packages/impvphero/SuperEditText/SuperEditText/images/download.svg?version=1.0.1) ](https://bintray.com/impvphero/SuperEditText/SuperEditText/1.0.1/link)
+[ ![Download](https://api.bintray.com/packages/impvphero/pvphero/AndroidSuperEditText/images/download.svg?version=1.0.2) ](https://bintray.com/impvphero/pvphero/AndroidSuperEditText/1.0.2/link)
 
-Eclipse : [superedittextlib:1.0.1](https://bintray.com/impvphero/SuperEditText/SuperEditText/view/files#files/com%2Fpvphero%2Fsuperedittextlib%2F1.0.1)
+Eclipse : [superedittextlib:1.0.2](https://bintray.com/impvphero/pvphero/AndroidSuperEditText/1.0.2#files/com%2Fpvphero%2Fedittextlib%2F1.0.2)
 
 gradle:
 
 ```groovy
-compile 'com.pvphero:superedittextlib:1.0.1'
+compile 'com.pvphero:edittextlib:1.0.2'
 ```
+library:
+
+- 下载下来`superedittextlib`  
+
+- 导入项目中
+
+- 依赖`superedittextlib`
+
 
 ## Usage
 
@@ -127,6 +135,7 @@ app:suet_clearButton="true"
 
 ## Thanks to
 [MaterialEditText](https://github.com/rengwuxian/MaterialEditText)
+
 [Sven Wong](https://wanghao200906.github.io/)
 
 
