@@ -397,7 +397,7 @@ public class SuperEditText extends AppCompatEditText {
         }
 
         primaryColor = typedArray.getColor(R.styleable.SuperEditText_suet_primaryColor, defaultPrimaryColor);
-        setFloatingLabelInternal(typedArray.getInt(R.styleable.SuperEditText_suet_floatingLabel, 0));
+        setFloatingLabelInternal(typedArray.getInt(R.styleable.SuperEditText_suet_floatingLabel, 1));
         errorColor = typedArray.getColor(R.styleable.SuperEditText_suet_errorColor, Color.parseColor("#e7492E"));
         minCharacters = typedArray.getInt(R.styleable.SuperEditText_suet_minCharacters, 0);
         maxCharacters = typedArray.getInt(R.styleable.SuperEditText_suet_maxCharacters, 0);
@@ -416,9 +416,9 @@ public class SuperEditText extends AppCompatEditText {
             setTypeface(typeface);
         }
         floatingLabelText = typedArray.getString(R.styleable.SuperEditText_suet_floatingLabelText);
-        if (floatingLabelText == null) {
-            floatingLabelText = getHint();
-        }
+//        if (floatingLabelText == null) {
+//            floatingLabelText = getHint();
+//        }
         floatingLabelPadding = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_floatingLabelPadding, bottomSpacing);
         floatingLabelTextSize = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_floatingLabelTextSize, getResources().getDimensionPixelSize(R.dimen.floating_label_text_size));
         floatingLabelTextColor = typedArray.getColor(R.styleable.SuperEditText_suet_floatingLabelTextColor, -1);

@@ -19,7 +19,7 @@ import com.vv.superedittextlib.utils.EditTextLogUtils;
  * @date 2018/8/28
  */
 public class SetErrorHandler {
-    private static final boolean DEBUG = true;
+
     private static final String TAG = "SetErrorHandler";
 
     private View mView;
@@ -68,9 +68,7 @@ public class SetErrorHandler {
 
     public void setError(CharSequence error, int innerPaddingTop) {
         mInnerPaddingTop = innerPaddingTop;
-        if (DEBUG) {
-            EditTextLogUtils.d(TAG, ".setError(error)...");
-        }
+        EditTextLogUtils.d(TAG, ".setError(error)...");
         if (error == null) {
             setError(null, null, false, true);
         } else {
@@ -97,21 +95,15 @@ public class SetErrorHandler {
     }
 
     public void setError(CharSequence error, Drawable icon, boolean showError, boolean showCompoundDrawableOnRight) {
-        if (DEBUG) {
-            EditTextLogUtils.d(TAG, ".setError(error, icon, showError, showCompoundDrawableOnRight)...");
-        }
+        EditTextLogUtils.d(TAG, ".setError(error, icon, showError, showCompoundDrawableOnRight)...");
         if (icon != null) {
-            if (DEBUG) {
-                EditTextLogUtils.d(TAG, "...icon is not null...");
-            }
+            EditTextLogUtils.d(TAG, "...icon is not null...");
         }
         mError = TextUtils.stringOrSpannedString(error);
         mErrorWasChanged = true;
         if (mView instanceof TextView && mError != null) {
             if (showCompoundDrawableOnRight) {
-                if (DEBUG) {
-                    EditTextLogUtils.d(TAG, "...showing CompoundDrawable on right)...");
-                }
+                EditTextLogUtils.d(TAG, "...showing CompoundDrawable on right)...");
                 ((TextView) mView).setCompoundDrawables(null, null, icon, null);
                 setCompoundDrawables(null, null, icon, null);
             } else {
@@ -140,9 +132,7 @@ public class SetErrorHandler {
     }
 
     public void showError() {
-        if (DEBUG) {
-            EditTextLogUtils.d(TAG, ".showError()...");
-        }
+        EditTextLogUtils.d(TAG, ".showError()...");
         if (mView.getWindowToken() == null) {
             mShowErrorAfterAttach = true;
             return;
@@ -162,9 +152,7 @@ public class SetErrorHandler {
             mPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         }
 
-        if (DEBUG) {
-            EditTextLogUtils.d(TAG, "...error: " + mError);
-        }
+        EditTextLogUtils.d(TAG, "...error: " + mError);
         TextView tv = (TextView) mPopup.getContentView();
         //tv.setPadding(mErrorPopupPaddingLeft, mErrorPopupPaddingTop, mErrorPopupPaddingRight, mErrorPopupPaddingBottom);
         chooseSize(mPopup, mError, tv);
@@ -196,9 +184,7 @@ public class SetErrorHandler {
             max = Math.max(max, l.getLineWidth(i));
         }
 
-        if (DEBUG) {
-            EditTextLogUtils.d(TAG, "max: " + max + ", height: " + l.getHeight());
-        }
+        EditTextLogUtils.d(TAG, "max: " + max + ", height: " + l.getHeight());
 
         /*
          * Now set the popup size to be big enough for the text plus the border.
