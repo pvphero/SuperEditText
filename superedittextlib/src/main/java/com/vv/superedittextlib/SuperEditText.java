@@ -40,11 +40,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.vv.superedittextlib.validation.METLengthChecker;
-import com.vv.superedittextlib.validation.METValidator;
 import com.vv.superedittextlib.utils.Colors;
 import com.vv.superedittextlib.utils.Density;
+import com.vv.superedittextlib.validation.METLengthChecker;
+import com.vv.superedittextlib.validation.METValidator;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -333,6 +334,11 @@ public class SuperEditText extends AppCompatEditText {
 
     private SetErrorHandler mSetErrorHandler;
 
+    /**
+     * time for last click
+     */
+    private static long lastClickTime;
+
     public SuperEditText(Context context) {
         super(context);
         init(context, null);
@@ -537,7 +543,35 @@ public class SuperEditText extends AppCompatEditText {
                 }
             });
         }
+
+        if (isSafeInputText) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                setCustomInsertionActionModeCallback(insertActionModeCallback);
+            }
+        }
     }
+
+    ActionMode.Callback insertActionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+
+        }
+    };
 
     private void initText() {
         if (!TextUtils.isEmpty(getText())) {
@@ -1660,7 +1694,44 @@ public class SuperEditText extends AppCompatEditText {
                     break;
             }
         }
+
+        if (hasFocus() && isEnabled() && isSafeInputText) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                this.setInsertionDisabled();
+                if (isFastDoubleClick()) {
+                    //block double click select text
+                    return true;
+                }
+            }
+        }
         return super.onTouchEvent(event);
+    }
+
+    /**
+     * block insert menu action
+     */
+    private void setInsertionDisabled() {
+        try {
+            Field editorField = TextView.class.getDeclaredField("mEditor");
+            editorField.setAccessible(true);
+            Object editorObject = editorField.get(this);
+
+            Class editorClass = Class.forName("android.widget.Editor");
+            Field mInsertionControllerEnabledField = editorClass.getDeclaredField("mInsertionControllerEnabled");
+            mInsertionControllerEnabledField.setAccessible(true);
+            mInsertionControllerEnabledField.set(editorObject, false);
+        } catch (Exception ignored) {
+        }
+    }
+
+    public static boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        lastClickTime = time;
+        if (0 < timeD && timeD < 1000) {
+            return true;
+        }
+        return false;
     }
 
     private boolean insideClearButton(MotionEvent event) {
