@@ -80,4 +80,5 @@
         <attr name="suet_innerPaddingTop" format="integer" />
 
     </declare-styleable>
+
 </resources>

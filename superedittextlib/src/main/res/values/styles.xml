@@ -1,9 +1,0 @@
-<resources>
-    <!-- These are the standard attributes that make up a complete theme. -->
-    <declare-styleable name="EditTextTheme">
-        <!-- Popup text displayed in TextView when setError is used. -->
-        <attr name="errorMessageBackground" format="reference" />
-        <!-- Background used instead of errorMessageBackground when the popup has to be above. -->
-        <attr name="errorMessageAboveBackground" format="reference" />
-    </declare-styleable>
-</resources>

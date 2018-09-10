@@ -1,14 +1,14 @@
 # SuperEditText使用说明
 
 ## Download
-[ ![Download](https://api.bintray.com/packages/impvphero/pvphero/AndroidSuperEditText/images/download.svg?version=1.0.2) ](https://bintray.com/impvphero/pvphero/AndroidSuperEditText/1.0.2/link)
+[ ![Download](https://api.bintray.com/packages/impvphero/pvphero/AndroidSuperEditText/images/download.svg?version=1.0.3) ](https://bintray.com/impvphero/pvphero/AndroidSuperEditText/1.0.3/link)
 
-Eclipse : [superedittextlib:1.0.2](https://bintray.com/impvphero/pvphero/AndroidSuperEditText/1.0.2#files/com%2Fpvphero%2Fedittextlib%2F1.0.2)
+Eclipse : [superedittextlib:1.0.3](https://bintray.com/impvphero/pvphero/AndroidSuperEditText/1.0.3#files/com%2Fpvphero%2Fedittextlib%2F1.0.3)
 
 gradle:
 
 ```groovy
-compile 'com.pvphero:edittextlib:1.0.2'
+compile 'com.pvphero:edittextlib:1.0.3'
 ```
 library:
 
@@ -66,8 +66,15 @@ app:suet_floatingLabelText="xxxx"
 
 ![3131](http://paynnyvep.bkt.clouddn.com/2018-08-30-3131.png)
 
+- java代码增加setError方法
 
-
+```java
+private EditText editText;
+...
+editText = findViewById(R.id.super_edittext2);
+...
+editText.setError("身份证号码错误!");
+```
 
 ### 3.结合TextInputLayout使用
 
@@ -96,7 +103,7 @@ app:suet_floatingLabelText="xxxx"
 ![1212](http://paynnyvep.bkt.clouddn.com/2018-08-30-1212.png)
 
 
-### 4. 设置清楚button
+### 4. 设置清除button
 
 ```
 app:suet_clearButton="true"
@@ -131,7 +138,13 @@ app:suet_clearButton="true"
 
 ![device-2018-08-31-102657](http://paynnyvep.bkt.clouddn.com/2018-08-31-device-2018-08-31-102657.png)
 
+### 5. 关闭运行Log
 
+java代码中加上
+
+```java
+EditTextLogUtils.getConfig().setLogSwitch(false);
+```
 
 ## Thanks to
 [MaterialEditText](https://github.com/rengwuxian/MaterialEditText)

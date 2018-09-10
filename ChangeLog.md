@@ -50,6 +50,8 @@ EditTextLogUtils.getConfig().setLogSwitch(true);
 
 需要根据实际情况调整`suet_innerPaddingTop`
 
+- 删除多余的style
+
 
 
 

@@ -1,7 +1,6 @@
 package com.vv.superedittextlib;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.Layout;
@@ -450,9 +449,8 @@ public class SetErrorHandler {
             // shown and positioned. Initialised with below background, which should have
             // dimensions identical to the above version for this to work (and is more likely).
             //following is a tweak on the ICS take...
-            TypedArray array = mContext.obtainStyledAttributes(R.styleable.EditTextTheme);
-            mPopupInlineErrorBackgroundId = array.getResourceId(R.styleable.EditTextTheme_errorMessageBackground, 0);
-            mPopupInlineErrorAboveBackgroundId = array.getResourceId(R.styleable.EditTextTheme_errorMessageAboveBackground, 0);
+            mPopupInlineErrorBackgroundId = R.drawable.super_edittext_popup_inline_error_holo_light_am;
+            mPopupInlineErrorAboveBackgroundId = R.drawable.super_edittext_popup_inline_error_above_holo_light_am;
             mView.setBackgroundResource(mPopupInlineErrorBackgroundId);
 
         }
