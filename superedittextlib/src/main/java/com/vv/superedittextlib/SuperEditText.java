@@ -656,7 +656,7 @@ public class SuperEditText extends AppCompatEditText {
         origin = scaleIcon(origin);
         iconBitmaps[0] = origin.copy(Bitmap.Config.ARGB_8888, true);
         Canvas canvas = new Canvas(iconBitmaps[0]);
-        canvas.drawColor(baseColor & 0x00ffffff | (Colors.isLight(baseColor) ? 0xff000000 : 0x8a000000), PorterDuff.Mode.SRC_IN);
+//        canvas.drawColor(baseColor & 0x00ffffff | (Colors.isLight(baseColor) ? 0xff000000 : 0x8a000000), PorterDuff.Mode.SRC_IN);
         iconBitmaps[1] = origin.copy(Bitmap.Config.ARGB_8888, true);
         canvas = new Canvas(iconBitmaps[1]);
         canvas.drawColor(primaryColor, PorterDuff.Mode.SRC_IN);

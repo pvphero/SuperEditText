@@ -52,6 +52,10 @@ EditTextLogUtils.getConfig().setLogSwitch(true);
 
 - 删除多余的style
 
+## V1.0.4
+
+- 改变clearButton的bitmap
+
 
 
 
