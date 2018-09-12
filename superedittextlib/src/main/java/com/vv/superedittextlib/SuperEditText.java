@@ -42,6 +42,7 @@ import android.widget.TextView;
 
 import com.vv.superedittextlib.utils.Colors;
 import com.vv.superedittextlib.utils.Density;
+import com.vv.superedittextlib.utils.EditTextLogUtils;
 import com.vv.superedittextlib.validation.METLengthChecker;
 import com.vv.superedittextlib.validation.METValidator;
 
@@ -140,6 +141,8 @@ public class SuperEditText extends AppCompatEditText {
      * the underline's highlight color, and the highlight color of the floating label if app:highlightFloatingLabel is set true in the xml. default is black(when app:darkTheme is false) or white(when app:darkTheme is true)
      */
     private int primaryColor;
+
+    private int clearButtonColor;
 
     /**
      * the color for when something is wrong.(e.g. exceeding max characters)
@@ -279,7 +282,7 @@ public class SuperEditText extends AppCompatEditText {
     /**
      * Clear Button
      */
-    private Bitmap clearButtonBitmaps;
+    private Bitmap[] clearButtonBitmaps;
 
     /**
      * Auto validate when focus lost.
@@ -334,6 +337,8 @@ public class SuperEditText extends AppCompatEditText {
 
     private SetErrorHandler mSetErrorHandler;
 
+    private int DEFAULT_CLEAR_BUTTON_COLOR = 0xFFC9C9C9;
+
     /**
      * time for last click
      */
@@ -378,6 +383,7 @@ public class SuperEditText extends AppCompatEditText {
         textColorHintStateList = typedArray.getColorStateList(R.styleable.SuperEditText_suet_textColorHint);
         baseColor = typedArray.getColor(R.styleable.SuperEditText_suet_baseColor, defaultBaseColor);
 
+        clearButtonColor = typedArray.getColor(R.styleable.SuperEditText_suet_clearButtonColor, DEFAULT_CLEAR_BUTTON_COLOR);
         // retrieve the default primaryColor
         int defaultPrimaryColor;
         TypedValue primaryColorTypedValue = new TypedValue();
@@ -435,7 +441,7 @@ public class SuperEditText extends AppCompatEditText {
         underlineColor = typedArray.getColor(R.styleable.SuperEditText_suet_underlineColor, -1);
         autoValidate = typedArray.getBoolean(R.styleable.SuperEditText_suet_autoValidate, true);
         showClearButton = typedArray.getBoolean(R.styleable.SuperEditText_suet_clearButton, false);
-        clearButtonBitmaps = generateIconBitmaps(R.drawable.ic_clear);
+        clearButtonBitmaps = generateIconBitmaps(R.drawable.met_ic_clear);
         floatingLabelAlwaysShown = typedArray.getBoolean(R.styleable.SuperEditText_suet_floatingLabelAlwaysShown, false);
         helperTextAlwaysShown = typedArray.getBoolean(R.styleable.SuperEditText_suet_helperTextAlwaysShown, false);
         validateOnFocusLost = typedArray.getBoolean(R.styleable.SuperEditText_suet_validateOnFocusLost, false);
@@ -624,7 +630,7 @@ public class SuperEditText extends AppCompatEditText {
         correctPaddings();
     }
 
-    private Bitmap generateIconBitmaps(@DrawableRes int origin) {
+    private Bitmap[] generateIconBitmaps(@DrawableRes int origin) {
         if (origin == -1) {
             return null;
         }
@@ -634,8 +640,7 @@ public class SuperEditText extends AppCompatEditText {
         int size = Math.max(options.outWidth, options.outHeight);
         options.inSampleSize = size > iconSize ? size / iconSize : 1;
         options.inJustDecodeBounds = false;
-//        return generateIconBitmaps(BitmapFactory.decodeResource(getResources(), origin, options));
-        return BitmapFactory.decodeResource(getResources(), origin, options);
+        return generateIconBitmaps(BitmapFactory.decodeResource(getResources(), origin, options));
     }
 
     private Bitmap[] generateIconBitmaps(Drawable drawable) {
@@ -657,7 +662,8 @@ public class SuperEditText extends AppCompatEditText {
         origin = scaleIcon(origin);
         iconBitmaps[0] = origin.copy(Bitmap.Config.ARGB_8888, true);
         Canvas canvas = new Canvas(iconBitmaps[0]);
-//        canvas.drawColor(baseColor & 0x00ffffff | (Colors.isLight(baseColor) ? 0xff000000 : 0x8a000000), PorterDuff.Mode.SRC_IN);
+        EditTextLogUtils.i("颜色", "Colors.isLight(clearButtonColor)" + Colors.isLight(baseColor));
+        canvas.drawColor(clearButtonColor, PorterDuff.Mode.SRC_IN);
         iconBitmaps[1] = origin.copy(Bitmap.Config.ARGB_8888, true);
         canvas = new Canvas(iconBitmaps[1]);
         canvas.drawColor(primaryColor, PorterDuff.Mode.SRC_IN);
@@ -1488,7 +1494,7 @@ public class SuperEditText extends AppCompatEditText {
             } else {
                 buttonLeft = getScrollX() + getWidth() - mSetErrorHandler.getCompoundPaddingRight() - iconOuterWidth;
             }
-            Bitmap clearButtonBitmap = clearButtonBitmaps;
+            Bitmap clearButtonBitmap = clearButtonBitmaps[0];
             int iconTop = lineStartY + bottomSpacing - iconOuterHeight + (iconOuterHeight - clearButtonBitmap.getHeight()) / 2;
             canvas.drawBitmap(clearButtonBitmap, buttonLeft, iconTop, paint);
         }

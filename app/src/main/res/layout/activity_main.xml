@@ -49,6 +49,7 @@
             app:suet_floatingLableTextAutoFontSizeMaxLines="3"
             app:suet_isSafeInputText="true"
             app:suet_innerPaddingTop="30"
+            app:suet_clearButtonColor="@color/colorAccent"
             app:suet_clearButton="true"
             app:suet_helperText="helper is here" />
 

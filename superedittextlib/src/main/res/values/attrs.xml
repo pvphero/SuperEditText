@@ -63,6 +63,7 @@
         <attr name="suet_validateOnFocusLost" format="boolean" />
         <!-- Whether check the characters count at the beginning it's shown. True by default. -->
         <attr name="suet_checkCharactersCountAtBeginning" format="boolean" />
+        <attr name="suet_clearButtonColor" format="color" />
 
         <attr name="suet_floatingLableTextAutoFontSizeLayoutAlign">
             <enum name="ALIGN_NORMAL" value="0" />
