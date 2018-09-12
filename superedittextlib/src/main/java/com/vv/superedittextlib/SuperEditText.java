@@ -435,7 +435,7 @@ public class SuperEditText extends AppCompatEditText {
         underlineColor = typedArray.getColor(R.styleable.SuperEditText_suet_underlineColor, -1);
         autoValidate = typedArray.getBoolean(R.styleable.SuperEditText_suet_autoValidate, true);
         showClearButton = typedArray.getBoolean(R.styleable.SuperEditText_suet_clearButton, false);
-        clearButtonBitmaps = generateIconBitmaps(R.drawable.met_ic_clear);
+        clearButtonBitmaps = generateIconBitmaps(R.drawable.ic_clear);
         floatingLabelAlwaysShown = typedArray.getBoolean(R.styleable.SuperEditText_suet_floatingLabelAlwaysShown, false);
         helperTextAlwaysShown = typedArray.getBoolean(R.styleable.SuperEditText_suet_helperTextAlwaysShown, false);
         validateOnFocusLost = typedArray.getBoolean(R.styleable.SuperEditText_suet_validateOnFocusLost, false);
