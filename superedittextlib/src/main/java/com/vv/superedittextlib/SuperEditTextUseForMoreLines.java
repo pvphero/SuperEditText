@@ -280,7 +280,7 @@ public class SuperEditTextUseForMoreLines extends AppCompatEditText {
     /**
      * Clear Button
      */
-    private Bitmap[] clearButtonBitmaps;
+    private Bitmap clearButtonBitmaps;
 
     /**
      * Auto validate when focus lost.
@@ -631,7 +631,7 @@ public class SuperEditTextUseForMoreLines extends AppCompatEditText {
         correctPaddings();
     }
 
-    private Bitmap[] generateIconBitmaps(@DrawableRes int origin) {
+    private Bitmap generateIconBitmaps(@DrawableRes int origin) {
         if (origin == -1) {
             return null;
         }
@@ -641,7 +641,8 @@ public class SuperEditTextUseForMoreLines extends AppCompatEditText {
         int size = Math.max(options.outWidth, options.outHeight);
         options.inSampleSize = size > iconSize ? size / iconSize : 1;
         options.inJustDecodeBounds = false;
-        return generateIconBitmaps(BitmapFactory.decodeResource(getResources(), origin, options));
+//        return generateIconBitmaps(BitmapFactory.decodeResource(getResources(), origin, options));
+        return BitmapFactory.decodeResource(getResources(), origin, options);
     }
 
     private Bitmap[] generateIconBitmaps(Drawable drawable) {
@@ -1488,7 +1489,7 @@ public class SuperEditTextUseForMoreLines extends AppCompatEditText {
             } else {
                 buttonLeft = getScrollX() + getWidth() - mSetErrorHandler.getCompoundPaddingRight() - iconOuterWidth;
             }
-            Bitmap clearButtonBitmap = clearButtonBitmaps[0];
+            Bitmap clearButtonBitmap = clearButtonBitmaps;
             int iconTop = lineStartY + bottomSpacing - iconOuterHeight + (iconOuterHeight - clearButtonBitmap.getHeight()) / 2;
             canvas.drawBitmap(clearButtonBitmap, buttonLeft, iconTop, paint);
         }
