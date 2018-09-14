@@ -9,6 +9,43 @@
     android:orientation="vertical">
 
 
+    <com.vv.superedittextlib.FloatingEditTextLayout
+        android:id="@+id/MyFloatingEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Example"
+        android:imeOptions="actionDone"
+        android:inputType="textCapWords|textEmailAddress"
+        android:maxLength="100"
+        android:maxLines="2"
+        app:float_lableText="djskjdsdjskjdsdjskjdsdjsk\njdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjds"
+        android:textAllCaps="true"
+        android:textColor="?colorPrimary"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:hintAnimationEnabled="true"
+        app:float_isSafeInputText="true"
+        app:hintTextAppearance="@style/HintTextAppearance"></com.vv.superedittextlib.FloatingEditTextLayout>
+
+    <com.vv.superedittextlib.FloatingEditTextLayout
+        android:id="@+id/MyFloatingEditText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Example"
+        android:imeOptions="actionDone"
+        android:inputType="textCapWords|textEmailAddress"
+        android:maxLength="100"
+        android:maxLines="2"
+        app:float_lableText="@string/tip_text_empl_buss_name"
+        android:textAllCaps="true"
+        android:textSize="24sp"
+        app:hintAnimationEnabled="true"
+        app:float_clearButton="true"
+        app:float_clearButtonColor="@color/colorPrimary"
+        app:hintTextAppearance="@style/HintTextAppearance"></com.vv.superedittextlib.FloatingEditTextLayout>
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,6 +112,7 @@
             app:suet_helperText="helper is here" />
 
     </android.support.design.widget.TextInputLayout>
+
 
     <!--<android.support.design.widget.TextInputLayout-->
     <!--android:layout_width="match_parent"-->
