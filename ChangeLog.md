@@ -56,6 +56,62 @@ EditTextLogUtils.getConfig().setLogSwitch(true);
 
 - 改变clearButton的bitmap
 
+### V1.0.5
 
+- add FloatingEditTextLayout
+
+这样以后再写TextInputLayout的时候,可以直接使用这个控件,而不用再写TextInputLayout+TextInputEditText
+
+用法如下:
+
+```xml
+<com.vv.superedittextlib.FloatingEditTextLayout
+        android:id="@+id/MyFloatingEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Example"
+        android:imeOptions="actionDone"
+        android:inputType="textCapWords|textEmailAddress"
+        android:maxLength="100"
+        android:maxLines="2"
+        app:float_lableText="djskjdsdjskjdsdjskjdsdjsk\njdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjds"
+        android:textAllCaps="true"
+        android:textColor="?colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:hintAnimationEnabled="true"
+        app:float_isSafeInputText="true"
+        app:hintTextAppearance="@style/HintTextAppearance">
+
+    </com.vv.superedittextlib.FloatingEditTextLayout>
+```
+
+代替之前的写法:
+
+```xml
+<android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Example"
+        app:hintAnimationEnabled="true"
+        app:hintTextAppearance="@style/HintTextAppearance">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords|textEmailAddress"
+            android:maxLength="100"
+            android:maxLines="2"
+            android:textAllCaps="true"
+            android:textColor="?colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="italic"/>
+
+    </android.support.design.widget.TextInputLayout>
+```
 
 

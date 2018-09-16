@@ -146,6 +146,41 @@ java代码中加上
 EditTextLogUtils.getConfig().setLogSwitch(false);
 ```
 
+### 6. 使用FloatingEditTextLayout代替 TextInputLayout+TextInputEditText
+
+用法如下:
+
+```xml
+<com.vv.superedittextlib.FloatingEditTextLayout
+        android:id="@+id/MyFloatingEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Example"
+        android:imeOptions="actionDone"
+        android:inputType="textCapWords|textEmailAddress"
+        android:maxLength="100"
+        android:maxLines="2"
+        app:float_lableText="djskjdsdjskjdsdjskjdsdjsk\njdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjds"
+        android:textAllCaps="true"
+        android:textColor="?colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:hintAnimationEnabled="true"
+        app:float_isSafeInputText="true"
+        app:hintTextAppearance="@style/HintTextAppearance">
+
+    </com.vv.superedittextlib.FloatingEditTextLayout>
+```
+
+运行效果如下:
+
+![device-2018-09-16-160324](http://paynnyvep.bkt.clouddn.com/2018-09-16-device-2018-09-16-160324.png)
+
+![device-2018-09-16-160346](http://paynnyvep.bkt.clouddn.com/2018-09-16-device-2018-09-16-160346.png)
+
+
+
 ## Thanks to
 [MaterialEditText](https://github.com/rengwuxian/MaterialEditText)
 
