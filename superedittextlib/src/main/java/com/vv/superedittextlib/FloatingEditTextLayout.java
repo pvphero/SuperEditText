@@ -54,8 +54,8 @@ public class FloatingEditTextLayout extends TextInputLayout {
         }
         editText = new ClearEditText(context, attrs);
         textView = new TextView(context);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FloatingEditText);
-        floatLableText = typedArray.getString(R.styleable.FloatingEditText_float_lableText);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SuperEditText);
+        floatLableText = typedArray.getString(R.styleable.SuperEditText_suet_floatingLabelText);
         initEdittext(typedArray);
         typedArray.recycle();
         initChildView();
@@ -80,48 +80,48 @@ public class FloatingEditTextLayout extends TextInputLayout {
     }
 
     private void initEdittext(TypedArray typedArray) {
-        if (typedArray.hasValue(R.styleable.FloatingEditText_android_text)) {
-            editText.setText(typedArray.getString(R.styleable.FloatingEditText_android_text));
+        if (typedArray.hasValue(R.styleable.SuperEditText_android_text)) {
+            editText.setText(typedArray.getString(R.styleable.SuperEditText_android_text));
         }
 
-        if (typedArray.hasValue(R.styleable.FloatingEditText_android_textAllCaps)) {
-            editText.setAllCaps(typedArray.getBoolean(R.styleable.FloatingEditText_android_textAllCaps, false));
+        if (typedArray.hasValue(R.styleable.SuperEditText_android_textAllCaps)) {
+            editText.setAllCaps(typedArray.getBoolean(R.styleable.SuperEditText_android_textAllCaps, false));
         }
 
-        if (typedArray.hasValue(R.styleable.FloatingEditText_android_textColor)) {
-            editText.setTextColor(typedArray.getColor(R.styleable.FloatingEditText_android_textColor, 0));
+        if (typedArray.hasValue(R.styleable.SuperEditText_android_textColor)) {
+            editText.setTextColor(typedArray.getColor(R.styleable.SuperEditText_android_textColor, 0));
         }
 
-        if (typedArray.hasValue(R.styleable.FloatingEditText_android_textSize)) {
-            editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, typedArray.getDimensionPixelSize(R.styleable.FloatingEditText_android_textSize, 0));
+        if (typedArray.hasValue(R.styleable.SuperEditText_android_textSize)) {
+            editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, typedArray.getDimensionPixelSize(R.styleable.SuperEditText_android_textSize, 0));
         }
 
         int textStyle = Typeface.NORMAL;
-        if (typedArray.hasValue(R.styleable.FloatingEditText_android_textStyle)) {
-            textStyle = typedArray.getInt(R.styleable.FloatingEditText_android_textStyle, Typeface.NORMAL);
+        if (typedArray.hasValue(R.styleable.SuperEditText_android_textStyle)) {
+            textStyle = typedArray.getInt(R.styleable.SuperEditText_android_textStyle, Typeface.NORMAL);
         }
 
         String fontFamily = "sans-serif";
-        if (typedArray.hasValue(R.styleable.FloatingEditText_android_fontFamily)) {
-            fontFamily = typedArray.getString(R.styleable.FloatingEditText_android_fontFamily);
+        if (typedArray.hasValue(R.styleable.SuperEditText_android_fontFamily)) {
+            fontFamily = typedArray.getString(R.styleable.SuperEditText_android_fontFamily);
         }
 
         editText.setTypeface(Typeface.create(fontFamily, textStyle));
 
-        if (typedArray.hasValue(R.styleable.FloatingEditText_android_inputType)) {
-            editText.setInputType(typedArray.getInt(R.styleable.FloatingEditText_android_inputType, -1));
+        if (typedArray.hasValue(R.styleable.SuperEditText_android_inputType)) {
+            editText.setInputType(typedArray.getInt(R.styleable.SuperEditText_android_inputType, -1));
         }
 
-        if (typedArray.hasValue(R.styleable.FloatingEditText_android_imeOptions)) {
-            editText.setImeOptions(typedArray.getInt(R.styleable.FloatingEditText_android_imeOptions, -1));
+        if (typedArray.hasValue(R.styleable.SuperEditText_android_imeOptions)) {
+            editText.setImeOptions(typedArray.getInt(R.styleable.SuperEditText_android_imeOptions, -1));
         }
 
-        if (typedArray.hasValue(R.styleable.FloatingEditText_android_maxLength)) {
-            editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(typedArray.getInt(R.styleable.FloatingEditText_android_maxLength, 0))});
+        if (typedArray.hasValue(R.styleable.SuperEditText_android_maxLength)) {
+            editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(typedArray.getInt(R.styleable.SuperEditText_android_maxLength, 0))});
         }
 
-        if (typedArray.hasValue(R.styleable.FloatingEditText_android_maxLines)) {
-            editText.setMaxLines(typedArray.getInt(R.styleable.FloatingEditText_android_maxLines, 1));
+        if (typedArray.hasValue(R.styleable.SuperEditText_android_maxLines)) {
+            editText.setMaxLines(typedArray.getInt(R.styleable.SuperEditText_android_maxLines, 1));
         }
 
         if (!TextUtils.isEmpty(floatLableText)) {

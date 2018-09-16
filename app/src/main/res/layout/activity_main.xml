@@ -19,13 +19,13 @@
         android:inputType="textCapWords|textEmailAddress"
         android:maxLength="100"
         android:maxLines="2"
-        app:float_lableText="djskjdsdjskjdsdjskjdsdjsk\njdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjds"
+        app:suet_floatingLabelText="djskjdsdjskjdsdjskjdsdjsk\njdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjds"
         android:textAllCaps="true"
         android:textColor="?colorPrimary"
         android:textSize="18sp"
         android:textStyle="italic"
         app:hintAnimationEnabled="true"
-        app:float_isSafeInputText="true"
+        app:suet_isSafeInputText="true"
         app:hintTextAppearance="@style/HintTextAppearance">
 
     </com.vv.superedittextlib.FloatingEditTextLayout>
@@ -40,12 +40,14 @@
         android:inputType="textCapWords|textEmailAddress"
         android:maxLength="100"
         android:maxLines="2"
-        app:float_lableText="@string/tip_text_empl_buss_name"
+        app:suet_floatingLabelText="@string/tip_text_empl_buss_name"
         android:textAllCaps="true"
         android:textSize="24sp"
         app:hintAnimationEnabled="true"
-        app:float_clearButton="true"
-        app:hintTextAppearance="@style/HintTextAppearance"></com.vv.superedittextlib.FloatingEditTextLayout>
+        app:suet_clearButton="true"
+        app:hintTextAppearance="@style/HintTextAppearance">
+
+    </com.vv.superedittextlib.FloatingEditTextLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -83,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="身份证号码* "
-            app:float_clearButton="true" />
+            app:suet_clearButton="true" />
 
     </android.support.design.widget.TextInputLayout>
 

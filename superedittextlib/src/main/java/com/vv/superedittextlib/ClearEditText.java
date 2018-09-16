@@ -96,14 +96,14 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
 
     private void init(Context context, AttributeSet attrs) {
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FloatingEditText);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SuperEditText);
         //Shielding edittext click event
-        isAllowLongClickable = typedArray.getBoolean(R.styleable.FloatingEditText_float_isAllowLongClickable, true);
-        isAllowTextIsSelectable = typedArray.getBoolean(R.styleable.FloatingEditText_float_isTextIsSelectable, true);
-        isAllowSelectionMode = typedArray.getBoolean(R.styleable.FloatingEditText_float_isSelectionActionMode, true);
-        isSafeInputText = typedArray.getBoolean(R.styleable.FloatingEditText_float_isSafeInputText, false);
-        isShowClearButton = typedArray.getBoolean(R.styleable.FloatingEditText_float_clearButton, false);
-        clearButtonColor = typedArray.getColor(R.styleable.FloatingEditText_float_clearButtonColor, DEFAULT_CLEAR_BUTTON_COLOR);
+        isAllowLongClickable = typedArray.getBoolean(R.styleable.SuperEditText_suet_isAllowLongClickable, true);
+        isAllowTextIsSelectable = typedArray.getBoolean(R.styleable.SuperEditText_suet_isTextIsSelectable, true);
+        isAllowSelectionMode = typedArray.getBoolean(R.styleable.SuperEditText_suet_isSelectionActionMode, true);
+        isSafeInputText = typedArray.getBoolean(R.styleable.SuperEditText_suet_isSafeInputText, false);
+        isShowClearButton = typedArray.getBoolean(R.styleable.SuperEditText_suet_clearButton, false);
+        clearButtonColor = typedArray.getColor(R.styleable.SuperEditText_suet_clearButtonColor, DEFAULT_CLEAR_BUTTON_COLOR);
         typedArray.recycle();
 
 //        mBitmapClear = createBitmap(CLEAR, context);
