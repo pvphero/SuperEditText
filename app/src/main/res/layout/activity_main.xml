@@ -43,7 +43,6 @@
         android:textSize="24sp"
         app:hintAnimationEnabled="true"
         app:float_clearButton="true"
-        app:float_clearButtonColor="@color/colorPrimary"
         app:hintTextAppearance="@style/HintTextAppearance"></com.vv.superedittextlib.FloatingEditTextLayout>
 
     <android.support.design.widget.TextInputLayout

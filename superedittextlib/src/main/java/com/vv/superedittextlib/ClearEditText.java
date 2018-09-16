@@ -39,24 +39,16 @@ import java.lang.reflect.Field;
  */
 public class ClearEditText extends AppCompatEditText implements View.OnFocusChangeListener {
 
-    //按钮资源
-    private final int CLEAR = R.drawable.met_ic_clear;
-
     private int DEFAULT_CLEAR_BUTTON_COLOR = 0xFFC9C9C9;
     //动画时长
     private final int ANIMATOR_TIME = 200;
     //按钮左右间隔,单位DP
     private final int INTERVAL = 5;
-    //清除按钮宽度,单位DP
-    private final int WIDTH_OF_CLEAR = 23;
-
 
     //间隔记录
     private int Interval;
     //清除按钮宽度记录
     private int mWidthClear;
-    //右内边距
-    private int mPaddingRight;
     //清除按钮的bitmap
     private Bitmap mBitmapClear;
     //清除按钮出现动画
@@ -67,7 +59,6 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
     private boolean isVisible = false;
     //右边添加其他按钮时使用
     private int mRight = 0;
-
 
     private boolean clearButtonTouched;
     private boolean clearButtonClicking;
@@ -116,11 +107,10 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
         typedArray.recycle();
 
 //        mBitmapClear = createBitmap(CLEAR, context);
-        iconSize = getPixel(32);
+        iconSize = getPixel(28);
         mBitmapClear = generateIconBitmaps(R.drawable.met_ic_clear);
         Interval = getPixel(INTERVAL);
         mWidthClear = iconSize;
-        mPaddingRight = Interval + mWidthClear + Interval;
         mAnimatorGone = ValueAnimator.ofFloat(1f, 0f).setDuration(ANIMATOR_TIME);
         mAnimatorVisible = ValueAnimator.ofInt(mWidthClear + Interval, 0).setDuration(ANIMATOR_TIME);
 
