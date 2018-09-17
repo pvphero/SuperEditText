@@ -24,6 +24,7 @@
         android:textColor="?colorPrimary"
         android:textSize="18sp"
         android:textStyle="italic"
+        app:suet_floatingLabelTextColor="?colorPrimary"
         app:hintAnimationEnabled="true"
         app:suet_isSafeInputText="true"
         android:paddingRight="10dp"

@@ -2,6 +2,7 @@ package com.vv.superedittextlib;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -33,6 +34,8 @@ public class FloatingEditTextLayout extends TextInputLayout {
 
     private String floatLableText;
 
+    private int floatLableTextColor;
+
     OnFocusChangeListener innerFocusChangeListener;
     private static int DEFAULT_TEXTVIEW_MARGIN_TOP = 15;
     private static int DEFAULT_TEXTVIEW_MARGIN_SIDE = 8;
@@ -56,6 +59,7 @@ public class FloatingEditTextLayout extends TextInputLayout {
         textView = new TextView(context);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SuperEditText);
         floatLableText = typedArray.getString(R.styleable.SuperEditText_suet_floatingLabelText);
+        floatLableTextColor = typedArray.getColor(R.styleable.SuperEditText_suet_floatingLabelTextColor, Color.GRAY);
         initEdittext(typedArray);
         typedArray.recycle();
         initChildView();
@@ -70,6 +74,7 @@ public class FloatingEditTextLayout extends TextInputLayout {
             lp.leftMargin = getPixel(DEFAULT_TEXTVIEW_MARGIN_SIDE);
             lp.rightMargin = getPixel(DEFAULT_TEXTVIEW_MARGIN_SIDE);
             setOrientation(LinearLayout.VERTICAL);
+            textView.setTextColor(floatLableTextColor);
             textView.setVisibility(GONE);
             addView(textView, 0, lp);
             addView(editText, 1);
