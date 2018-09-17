@@ -36,6 +36,8 @@ public class FloatingEditTextLayout extends TextInputLayout {
 
     private int floatLableTextColor;
 
+    private boolean isFloatingLabelAlwaysShown = true;
+
     OnFocusChangeListener innerFocusChangeListener;
     private static int DEFAULT_TEXTVIEW_MARGIN_TOP = 15;
     private static int DEFAULT_TEXTVIEW_MARGIN_SIDE = 8;
@@ -60,6 +62,7 @@ public class FloatingEditTextLayout extends TextInputLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SuperEditText);
         floatLableText = typedArray.getString(R.styleable.SuperEditText_suet_floatingLabelText);
         floatLableTextColor = typedArray.getColor(R.styleable.SuperEditText_suet_floatingLabelTextColor, Color.GRAY);
+        isFloatingLabelAlwaysShown = typedArray.getBoolean(R.styleable.SuperEditText_suet_floatingLabelAlwaysShown, true);
         initEdittext(typedArray);
         typedArray.recycle();
         initChildView();
@@ -67,7 +70,7 @@ public class FloatingEditTextLayout extends TextInputLayout {
     }
 
     private void initChildView() {
-        if (!TextUtils.isEmpty(floatLableText)) {
+        if (!TextUtils.isEmpty(floatLableText) && isFloatingLabelAlwaysShown) {
             textView.setText(floatLableText);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.topMargin = getPixel(DEFAULT_TEXTVIEW_MARGIN_TOP);
@@ -141,7 +144,7 @@ public class FloatingEditTextLayout extends TextInputLayout {
         innerFocusChangeListener = new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, final boolean hasFocus) {
-                if (!TextUtils.isEmpty(floatLableText)) {
+                if (!TextUtils.isEmpty(floatLableText) && isFloatingLabelAlwaysShown) {
                     if (!hasFocus) {
                         getChildAt(0).setVisibility(GONE);
                     } else {
@@ -189,5 +192,28 @@ public class FloatingEditTextLayout extends TextInputLayout {
 
     private int getPixel(int dp) {
         return Density.dp2px(getContext(), dp);
+    }
+
+    public boolean isFloatingLabelAlwaysShown() {
+        return isFloatingLabelAlwaysShown;
+    }
+
+    public void setFloatingLabelAlwaysShown(boolean floatingLabelAlwaysShown) {
+        isFloatingLabelAlwaysShown = floatingLabelAlwaysShown;
+        postInvalidate();
+    }
+
+    public void hideFloatTextView() {
+        getChildAt(0).setVisibility(GONE);
+        isFloatingLabelAlwaysShown = false;
+        postInvalidate();
+    }
+
+    public void showFloatTextView() {
+        if (hasFocus()) {
+            getChildAt(0).setVisibility(VISIBLE);
+        }
+        isFloatingLabelAlwaysShown = true;
+        postInvalidate();
     }
 }

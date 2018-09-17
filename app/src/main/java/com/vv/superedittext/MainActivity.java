@@ -6,11 +6,15 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.vv.superedittextlib.FloatingEditTextLayout;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText mEditText;
     private EditText editText;
     private EditText mEditText2;
+
+    private FloatingEditTextLayout floatingEditTextLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mEditText = findViewById(R.id.super_edittext);
         editText = findViewById(R.id.super_edittext2);
+        floatingEditTextLayout = findViewById(R.id.MyFloatingEditText);
+        floatingEditTextLayout.hideFloatTextView();
 //        mEditText2 = findViewById(R.id.super_edittext3);
 
         mEditText.addTextChangedListener(new TextWatcher() {
@@ -33,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     mEditText.setError("身份证号码错误!");
                 }
+                floatingEditTextLayout.showFloatTextView();
             }
 
             @Override

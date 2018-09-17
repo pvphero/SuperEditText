@@ -32,6 +32,24 @@
 
     </com.vv.superedittextlib.FloatingEditTextLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+
+        app:hintAnimationEnabled="true"
+        app:hintTextAppearance="@style/HintTextAppearance">
+
+        <com.vv.superedittextlib.ClearEditText
+            android:id="@+id/super_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="身份证号码* "
+            app:suet_clearButton="true"
+            android:paddingRight="10dp" />
+
+    </android.support.design.widget.TextInputLayout>
+
     <com.vv.superedittextlib.FloatingEditTextLayout
         android:id="@+id/MyFloatingEditText2"
         android:layout_width="match_parent"
@@ -135,23 +153,7 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
 
-        app:hintAnimationEnabled="true"
-        app:hintTextAppearance="@style/HintTextAppearance">
-
-        <com.vv.superedittextlib.ClearEditText
-            android:id="@+id/super_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="身份证号码* "
-            app:suet_clearButton="true"
-            android:paddingRight="10dp" />
-
-    </android.support.design.widget.TextInputLayout>
 
 
     <com.vv.superedittextlib.FloatingEditTextLayout
