@@ -26,6 +26,7 @@
         android:textStyle="italic"
         app:hintAnimationEnabled="true"
         app:suet_isSafeInputText="true"
+        android:paddingRight="10dp"
         app:hintTextAppearance="@style/HintTextAppearance">
 
     </com.vv.superedittextlib.FloatingEditTextLayout>
@@ -57,16 +58,14 @@
         app:hintAnimationEnabled="true"
         app:hintTextAppearance="@style/HintTextAppearance">
 
-        <com.vv.superedittextlib.SuperEditTextUseForMoreLines
+        <com.vv.superedittextlib.SuperEditText
             android:id="@+id/super_edittext2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:suet_floatingLabel="normal"
-            app:suet_floatingLabelText="@string/tip_text_empl_buss_name"
-            app:suet_floatingLableTextAutoFontSizeMaxLines="5"
+            app:suet_floatingLabelText="dsdsdsd"
             app:suet_isSafeInputText="true"
             app:suet_clearButton="true"
-            app:suet_innerPaddingTop="30"
             app:suet_helperText="helper is here" />
 
     </android.support.design.widget.TextInputLayout>
@@ -85,10 +84,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="身份证号码* "
-            app:suet_clearButton="true" />
+            app:suet_clearButton="true"
+            android:paddingRight="10dp" />
 
     </android.support.design.widget.TextInputLayout>
 
+
+    <com.vv.superedittextlib.FloatingEditTextLayout
+        android:id="@+id/idCardNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Example"
+        android:inputType="text|textNoSuggestions|textVisiblePassword"
+        android:maxLength="18"
+        android:paddingRight="10dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        app:suet_clearButton="true"
+        app:suet_floatingLabelText="djskdjskjdksjdsjdks"
+        app:suet_isSafeInputText="true">
+
+    </com.vv.superedittextlib.FloatingEditTextLayout>
 
     <!--<android.support.design.widget.TextInputLayout-->
     <!--android:layout_width="match_parent"-->

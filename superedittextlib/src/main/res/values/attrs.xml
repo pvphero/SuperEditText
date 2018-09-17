@@ -96,6 +96,7 @@
         <attr name="android:imeOptions" />
         <attr name="android:maxLength" />
         <attr name="android:maxLines" />
+
     </declare-styleable>
 
 </resources>
