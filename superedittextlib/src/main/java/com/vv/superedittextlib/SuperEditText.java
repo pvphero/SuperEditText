@@ -883,7 +883,6 @@ public class SuperEditText extends AppCompatEditText {
      */
     private void correctPaddings() {
         super.setPadding(innerPaddingLeft, innerPaddingTop + extraPaddingTop, innerPaddingRight, innerPaddingBottom + extraPaddingBottom);
-        requestLayout();
     }
 
     @Override

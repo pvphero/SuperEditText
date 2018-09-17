@@ -4,7 +4,7 @@ ext {
 
     verMajor = 1
     verMinor = 0
-    verPatch = 7
+    verPatch = 9
 
     bintray = [
             artifactId    : 'edittextlib',
