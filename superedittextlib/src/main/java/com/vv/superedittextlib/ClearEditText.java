@@ -513,7 +513,7 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
+        if (hasFocus && isShowClearButton) {
             if (getText().length() > 0) {
                 if (!isVisible) {
                     isVisible = true;
@@ -532,9 +532,17 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
             }
         }
 
-
         if (mOnFocusChangeListener != null) {
             mOnFocusChangeListener.onFocusChange(v, hasFocus);
         }
+    }
+
+    public boolean isShowClearButton() {
+        return isShowClearButton;
+    }
+
+    public void setShowClearButton(boolean showClearButton) {
+        isShowClearButton = showClearButton;
+        postInvalidate();
     }
 }

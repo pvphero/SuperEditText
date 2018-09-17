@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.vv.superedittextlib.ClearEditText;
 import com.vv.superedittextlib.FloatingEditTextLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     mEditText.setError("身份证号码错误!");
                 }
                 floatingEditTextLayout.showFloatTextView();
+                ((ClearEditText) floatingEditTextLayout.getEditText()).setShowClearButton(false);
             }
 
             @Override
