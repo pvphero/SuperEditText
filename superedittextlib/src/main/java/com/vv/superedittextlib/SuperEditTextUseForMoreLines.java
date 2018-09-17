@@ -28,7 +28,6 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.SingleLineTransformationMethod;
 import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -56,8 +55,9 @@ import java.util.regex.Pattern;
  * @author pvphero
  * @date 2018/8/27
  */
-public class SuperEditText extends AppCompatEditText {
+public class SuperEditTextUseForMoreLines extends AppCompatEditText {
 
+    private static final String TAG = "SuperEditText";
 
     @IntDef({FLOATING_LABEL_NONE, FLOATING_LABEL_NORMAL, FLOATING_LABEL_HIGHLIGHT})
     public @interface FloatingLabelType {
@@ -336,26 +336,29 @@ public class SuperEditText extends AppCompatEditText {
     private METLengthChecker lengthChecker;
 
     private SetErrorHandler mSetErrorHandler;
+    private float mFloatLableMinTextSize;
+    private static final int DEFAULT_MIN_TEXT_SIZE = 8; //sp
 
     private int DEFAULT_CLEAR_BUTTON_COLOR = 0xFFC9C9C9;
-
     /**
      * time for last click
      */
     private static long lastClickTime;
 
-    public SuperEditText(Context context) {
+    private boolean isNeedShowFloatLableText = true;
+
+    public SuperEditTextUseForMoreLines(Context context) {
         super(context);
         init(context, null);
     }
 
-    public SuperEditText(Context context, AttributeSet attrs) {
+    public SuperEditTextUseForMoreLines(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SuperEditText(Context context, AttributeSet attrs, int style) {
+    public SuperEditTextUseForMoreLines(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
         init(context, attrs);
     }
@@ -366,6 +369,7 @@ public class SuperEditText extends AppCompatEditText {
         }
 
         mSetErrorHandler = new SetErrorHandler(context, this);
+        mFloatLableMinTextSize = getPixel(DEFAULT_MIN_TEXT_SIZE);
 
         iconSize = getPixel(32);
         iconOuterWidth = getPixel(32);
@@ -435,6 +439,7 @@ public class SuperEditText extends AppCompatEditText {
         floatingLabelTextSize = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_floatingLabelTextSize, getResources().getDimensionPixelSize(R.dimen.floating_label_text_size));
         floatingLabelTextColor = typedArray.getColor(R.styleable.SuperEditText_suet_floatingLabelTextColor, -1);
         floatingLabelAnimating = typedArray.getBoolean(R.styleable.SuperEditText_suet_floatingLabelAnimating, true);
+        isNeedShowFloatLableText = typedArray.getBoolean(R.styleable.SuperEditText_suet_isNeedShowFloatingLableText, true);
         bottomTextSize = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_bottomTextSize, getResources().getDimensionPixelSize(R.dimen.bottom_text_size));
         hideUnderline = typedArray.getBoolean(R.styleable.SuperEditText_suet_hideUnderline, false);
         isHideUndeLineDotted = typedArray.getBoolean(R.styleable.SuperEditText_suet_isHideUnderlineDotted, false);
@@ -641,6 +646,7 @@ public class SuperEditText extends AppCompatEditText {
         options.inSampleSize = size > iconSize ? size / iconSize : 1;
         options.inJustDecodeBounds = false;
         return generateIconBitmaps(BitmapFactory.decodeResource(getResources(), origin, options));
+//        return BitmapFactory.decodeResource(getResources(), origin, options);
     }
 
     private Bitmap[] generateIconBitmaps(Drawable drawable) {
@@ -839,7 +845,11 @@ public class SuperEditText extends AppCompatEditText {
     }
 
     private void initPadding() {
-        extraPaddingTop = floatingLabelEnabled ? floatingLabelTextSize + floatingLabelPadding : floatingLabelPadding;
+        if (!isNeedShowFloatLableText) {
+            setFloatLableTextMaxLines(1);
+        }
+        int lableTextPaddingTop = (int) (mFloatLableMinTextSize * getFloatLableTextMaxLines()) + (getFloatLableTextMaxLines() > 1 ? getPixel(30) : getPixel(0));
+        extraPaddingTop = floatingLabelEnabled ? lableTextPaddingTop + floatingLabelPadding : floatingLabelPadding;
         textPaint.setTextSize(bottomTextSize);
         Paint.FontMetrics textMetrics = textPaint.getFontMetrics();
         extraPaddingBottom = (int) ((textMetrics.descent - textMetrics.ascent) * currentBottomLines) + (hideUnderline ? bottomSpacing : bottomSpacing * 2);
@@ -996,15 +1006,13 @@ public class SuperEditText extends AppCompatEditText {
                 }
 
                 if (hasFocus) {
-                    if (tempErrorText != null) {
-                        mSetErrorHandler.showError();
-                    }
+                    initPadding();
                     floatingLabelAlwaysShown = true;
+                    floatingLabelEnabled = true;
                 } else {
-                    if (tempErrorText != null) {
-                        mSetErrorHandler.hideError();
-                    }
+                    floatingLabelEnabled = false;
                     floatingLabelAlwaysShown = false;
+                    initPadding();
                 }
             }
         };
@@ -1100,7 +1108,7 @@ public class SuperEditText extends AppCompatEditText {
         }
     }
 
-    public void setFloatingLabel(@FloatingLabelType int mode) {
+    public void setFloatingLabel(@SuperEditTextUseForMoreLines.FloatingLabelType int mode) {
         setFloatingLabelInternal(mode);
         initPadding();
     }
@@ -1215,13 +1223,14 @@ public class SuperEditText extends AppCompatEditText {
         postInvalidate();
     }
 
-    @Override
-    public void setError(CharSequence errorText) {
-        tempErrorText = errorText == null ? null : errorText.toString();
-//        if (adjustBottomLines()) {
-//            postInvalidate();
-//        }
-        mSetErrorHandler.setError(errorText, getPixel(0));
+
+    public boolean isNeedShowFloatLableText() {
+        return isNeedShowFloatLableText;
+    }
+
+    public void setNeedShowFloatLableText(boolean needShowFloatLableText) {
+        isNeedShowFloatLableText = needShowFloatLableText;
+        postInvalidate();
     }
 
     @Override
@@ -1327,7 +1336,7 @@ public class SuperEditText extends AppCompatEditText {
      * @param validator Validator to add
      * @return This instance, for easy chaining
      */
-    public SuperEditText addValidator(METValidator validator) {
+    public SuperEditTextUseForMoreLines addValidator(METValidator validator) {
         if (validators == null) {
             this.validators = new ArrayList<>();
         }
@@ -1396,9 +1405,8 @@ public class SuperEditText extends AppCompatEditText {
         if (!isFloatLableTextMeasure) {
             return;
         }
-
-        floatLableTextWidthLimit = getMeasuredWidth() - getCompoundPaddingLeft() - getCompoundPaddingRight();
-        floatLableTextHeightLimit = getMeasuredHeight() - getCompoundPaddingBottom() - getCompoundPaddingTop();
+        floatLableTextWidthLimit = getMeasuredWidth();
+        floatLableTextHeightLimit = (int) (mFloatLableMinTextSize * getFloatLableTextMaxLines());
         floatLableTextContent = getFloatingLabelText();
         setNewFloatLableText(floatLableTextWidthLimit, floatLableTextHeightLimit);
     }
@@ -1407,12 +1415,15 @@ public class SuperEditText extends AppCompatEditText {
         if (floatLableTextWidthLimit >= 0 && floatLableTextHeightLimit >= 0 && !TextUtils.isEmpty(floatLableTextContent)) {
             TextPaint mPaint = new TextPaint(getPaint());
             newFloatLableTextSize = setNewFloatLableTextSize(floatLableTextContent.toString().trim(), floatLableTextWidthLimit, floatLableTextHeightLimit, mPaint, floatLableTextAlignment);
+//            if (newFloatLableTextSize < DEFAULT_MIN_TEXT_SIZE) {
+//                newFloatLableTextSize = DEFAULT_MIN_TEXT_SIZE;
+//            }
         }
         changeFloatLableTextSize(newFloatLableTextSize);
     }
 
     private void changeFloatLableTextSize(float newFloatLableTextSize) {
-        textPaint.setTextSize(newFloatLableTextSize);
+        setFloatingLabelTextSize((int) newFloatLableTextSize);
     }
 
     private float setNewFloatLableTextSize(String textContent, int widthLimit, int heightLimit, TextPaint paint, Layout.Alignment alignment) {
@@ -1428,6 +1439,7 @@ public class SuperEditText extends AppCompatEditText {
         StaticLayout heightStaticLayout = getStaticLayout(textContent, alignment, paint, floatLableTextWidthLimit, floatLableTextCacheTargetTextSize);
         int cacheHeight = heightStaticLayout.getHeight();
         int cacheLineCount = heightStaticLayout.getLineCount();
+        EditTextLogUtils.i(TAG, "cacheLineCount:" + cacheLineCount);
         int line = getFloatLableTextMaxLines();
 
         if (line <= Integer.MAX_VALUE) {
@@ -1441,14 +1453,17 @@ public class SuperEditText extends AppCompatEditText {
             while (line < cacheLineCount && floatLableTextCacheTargetTextSize > floatLableTextMinSize) {
                 floatLableTextCacheTargetTextSize = Math.max(floatLableTextCacheTargetTextSize - 1, floatLableTextMinSize);
                 cacheLineCount = getStaticLayout(textContent, alignment, paint, width, floatLableTextCacheTargetTextSize).getLineCount();
+                EditTextLogUtils.i(TAG, "变化中的cacheLineCount:" + cacheLineCount + "_floatLableTextCacheTargetTextSize:" + floatLableTextCacheTargetTextSize);
             }
 
             cacheHeight = getStaticLayout(textContent, alignment, paint, width, floatLableTextCacheTargetTextSize).getHeight();
-
+            EditTextLogUtils.i(TAG, "最开始的cacheHeight:" + cacheHeight);
             while (cacheHeight > height && floatLableTextCacheTargetTextSize > floatLableTextMinSize) {
                 floatLableTextCacheTargetTextSize = Math.max(floatLableTextCacheTargetTextSize - 1, floatLableTextMinSize);
                 cacheHeight = getStaticLayout(textContent, alignment, paint, width, floatLableTextCacheTargetTextSize).getHeight();
+                EditTextLogUtils.i(TAG, "变化的cacheHeight:" + cacheHeight + "_floatLableTextCacheTargetTextSize:" + floatLableTextCacheTargetTextSize);
             }
+            EditTextLogUtils.i(TAG, "最终的cacheHeight:" + cacheHeight + "_limtHeight" + (int) (mFloatLableMinTextSize * getFloatLableTextMaxLines()));
         }
         return floatLableTextCacheTargetTextSize;
     }
@@ -1457,18 +1472,6 @@ public class SuperEditText extends AppCompatEditText {
         if (canvas != null) {
             getStaticLayout(textContent, alignment, paint, width, paint.getTextSize()).draw(canvas);
         }
-    }
-
-    private static int getMaxLines(TextView view) {
-        int maxLines = 1; // No limit (Integer.MAX_VALUE also means no limit)
-        TransformationMethod method = view.getTransformationMethod();
-        if (method != null && method instanceof SingleLineTransformationMethod) {
-            maxLines = 1;
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            // setMaxLines() and getMaxLines() are only available on android-16+
-            maxLines = view.getMaxLines();
-        }
-        return maxLines;
     }
 
     private StaticLayout getStaticLayout(CharSequence source, Layout.Alignment align, TextPaint paint, int width, float textSize) {
@@ -1484,7 +1487,6 @@ public class SuperEditText extends AppCompatEditText {
         int startX = getScrollX() + getPaddingLeft();
         int endX = getScrollX() + getWidth() - getPaddingRight();
         int lineStartY = getScrollY() + getHeight() - getPaddingBottom() - mSetErrorHandler.getCompoundPaddingBottom() / 2;
-
         // draw the clear button
         if (hasFocus() && showClearButton && !TextUtils.isEmpty(getText()) && isEnabled()) {
             paint.setAlpha(255);
@@ -1492,7 +1494,7 @@ public class SuperEditText extends AppCompatEditText {
             if (isRTL()) {
                 buttonLeft = startX;
             } else {
-                buttonLeft = getScrollX() + getWidth() - mSetErrorHandler.getCompoundPaddingRight() - iconOuterWidth;
+                buttonLeft = getScrollX() + getWidth() - getCompoundPaddingRight() - iconOuterWidth;
             }
             Bitmap clearButtonBitmap = clearButtonBitmaps[0];
             int iconTop = lineStartY + bottomSpacing - iconOuterHeight + (iconOuterHeight - clearButtonBitmap.getHeight()) / 2;
@@ -1558,6 +1560,7 @@ public class SuperEditText extends AppCompatEditText {
         // draw the floating label
         if (floatingLabelEnabled && !TextUtils.isEmpty(floatingLabelText)) {
             textPaint.setTextSize(newFloatLableTextSize);
+            setFloatingLabelTextSize((int) newFloatLableTextSize);
             // calculate the text color
             textPaint.setColor((Integer) focusEvaluator.evaluate(focusFraction * (isEnabled() ? 1 : 0), floatingLabelTextColor != -1 ? floatingLabelTextColor : (baseColor & 0x00ffffff | 0x44000000), primaryColor));
 
@@ -1581,7 +1584,9 @@ public class SuperEditText extends AppCompatEditText {
             textPaint.setAlpha(alpha);
 
             // draw the floating label
-            drawFloatLabletTextView(floatLableTextContent.toString().trim(), floatLableTextWidthLimit, textPaint, floatLableTextAlignment, canvas);
+            if (floatingLabelAlwaysShown && floatingLabelEnabled && isNeedShowFloatLableText) {
+                drawFloatLabletTextView(floatLableTextContent.toString().trim(), floatLableTextWidthLimit, textPaint, floatLableTextAlignment, canvas);
+            }
 //            canvas.drawText(floatingLabelText.toString(), floatingLabelStartX, floatingLabelStartY, textPaint);
         }
 
@@ -1711,6 +1716,7 @@ public class SuperEditText extends AppCompatEditText {
                 }
             }
         }
+
         return super.onTouchEvent(event);
     }
 
@@ -1745,7 +1751,7 @@ public class SuperEditText extends AppCompatEditText {
         float x = event.getX();
         float y = event.getY();
         int startX = getScrollX();
-        int endX = getScrollX() + getWidth() - mSetErrorHandler.getCompoundPaddingRight();
+        int endX = getScrollX() + getWidth() - getCompoundPaddingRight();
         int buttonLeft;
         if (isRTL()) {
             buttonLeft = startX;
