@@ -845,6 +845,9 @@ public class SuperEditText extends AppCompatEditText {
     }
 
     private void initPadding() {
+        if (!isNeedShowFloatLableText) {
+            setFloatLableTextMaxLines(1);
+        }
         int lableTextPaddingTop = (int) (mFloatLableMinTextSize * getFloatLableTextMaxLines()) + (getFloatLableTextMaxLines() > 1 ? getPixel(30) : getPixel(0));
         extraPaddingTop = floatingLabelEnabled ? lableTextPaddingTop + floatingLabelPadding : floatingLabelPadding;
         textPaint.setTextSize(bottomTextSize);

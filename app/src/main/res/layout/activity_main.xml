@@ -66,6 +66,7 @@
             app:suet_floatingLabelText="@string/tip_text_empl_buss_name"
             app:suet_isSafeInputText="true"
             app:suet_clearButton="true"
+            app:suet_isNeedShowFloatingLableText="false"
             app:suet_floatingLableTextAutoFontSizeMaxLines="5"
             app:suet_helperText="helper is here" />
 
