@@ -345,6 +345,8 @@ public class SuperEditText extends AppCompatEditText {
      */
     private static long lastClickTime;
 
+    private boolean isNeedShowFloatLableText = true;
+
     public SuperEditText(Context context) {
         super(context);
         init(context, null);
@@ -437,6 +439,7 @@ public class SuperEditText extends AppCompatEditText {
         floatingLabelTextSize = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_floatingLabelTextSize, getResources().getDimensionPixelSize(R.dimen.floating_label_text_size));
         floatingLabelTextColor = typedArray.getColor(R.styleable.SuperEditText_suet_floatingLabelTextColor, -1);
         floatingLabelAnimating = typedArray.getBoolean(R.styleable.SuperEditText_suet_floatingLabelAnimating, true);
+        isNeedShowFloatLableText = typedArray.getBoolean(R.styleable.SuperEditText_suet_isNeedShowFloatingLableText, true);
         bottomTextSize = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_bottomTextSize, getResources().getDimensionPixelSize(R.dimen.bottom_text_size));
         hideUnderline = typedArray.getBoolean(R.styleable.SuperEditText_suet_hideUnderline, false);
         isHideUndeLineDotted = typedArray.getBoolean(R.styleable.SuperEditText_suet_isHideUnderlineDotted, false);
@@ -1218,6 +1221,15 @@ public class SuperEditText extends AppCompatEditText {
     }
 
 
+    public boolean isNeedShowFloatLableText() {
+        return isNeedShowFloatLableText;
+    }
+
+    public void setNeedShowFloatLableText(boolean needShowFloatLableText) {
+        isNeedShowFloatLableText = needShowFloatLableText;
+        postInvalidate();
+    }
+
     @Override
     public CharSequence getError() {
         return tempErrorText;
@@ -1569,7 +1581,9 @@ public class SuperEditText extends AppCompatEditText {
             textPaint.setAlpha(alpha);
 
             // draw the floating label
-            drawFloatLabletTextView(floatLableTextContent.toString().trim(), floatLableTextWidthLimit, textPaint, floatLableTextAlignment, canvas);
+            if (floatingLabelAlwaysShown && floatingLabelEnabled && isNeedShowFloatLableText) {
+                drawFloatLabletTextView(floatLableTextContent.toString().trim(), floatLableTextWidthLimit, textPaint, floatLableTextAlignment, canvas);
+            }
 //            canvas.drawText(floatingLabelText.toString(), floatingLabelStartX, floatingLabelStartY, textPaint);
         }
 

@@ -78,6 +78,7 @@
         <attr name="suet_isTextIsSelectable" format="boolean" />
         <attr name="suet_isSelectionActionMode" format="boolean" />
         <attr name="suet_isSafeInputText" format="boolean" />
+        <attr name="suet_isNeedShowFloatingLableText" format="boolean" />
         <attr name="suet_innerPaddingTop" format="integer" />
 
 
