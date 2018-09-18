@@ -171,6 +171,10 @@ public class FloatingEditTextLayout extends TextInputLayout {
         editText.setError(errorText);
     }
 
+    public void setLayoutError(@Nullable CharSequence errorText) {
+        super.setError(errorText);
+    }
+
 
     public void setHint(@StringRes int hintRes) {
         setHint(getContext().getString(hintRes));

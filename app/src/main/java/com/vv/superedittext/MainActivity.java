@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         editText = findViewById(R.id.super_edittext2);
         floatingEditTextLayout = findViewById(R.id.MyFloatingEditText);
         floatingEditTextLayout.hideFloatTextView();
+        floatingEditTextLayout.setLayoutError("账号错误");
 //        mEditText2 = findViewById(R.id.super_edittext3);
 
         mEditText.addTextChangedListener(new TextWatcher() {
