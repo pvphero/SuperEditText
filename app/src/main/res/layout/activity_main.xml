@@ -33,6 +33,29 @@
 
     </com.vv.superedittextlib.FloatingEditTextLayout>
 
+
+    <com.vv.superedittextlib.FloatingEditTextLayoutNoClear
+        android:id="@+id/MyFloatingEditText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Example"
+        android:imeOptions="actionDone"
+        android:inputType="textCapWords|textEmailAddress"
+        android:maxLength="100"
+        android:maxLines="2"
+        app:suet_floatingLabelText="djskjdsdjskjdsdjskjdsdjsk\njdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjds"
+        android:textAllCaps="true"
+        android:textColor="?colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:suet_floatingLabelTextColor="?colorPrimary"
+        app:hintAnimationEnabled="true"
+        android:paddingRight="10dp"
+        app:hintTextAppearance="@style/HintTextAppearance">
+
+    </com.vv.superedittextlib.FloatingEditTextLayoutNoClear>
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
