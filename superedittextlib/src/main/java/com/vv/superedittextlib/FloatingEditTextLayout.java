@@ -37,6 +37,8 @@ public class FloatingEditTextLayout extends TextInputLayout {
 
     private int floatLableTextColor;
 
+    private int floatingLabelTextSize;
+
     private boolean isFloatingLabelAlwaysShown = true;
 
     OnFocusChangeListener innerFocusChangeListener;
@@ -75,10 +77,11 @@ public class FloatingEditTextLayout extends TextInputLayout {
             textView.setText(floatLableText);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.topMargin = getPixel(DEFAULT_TEXTVIEW_MARGIN_TOP);
-            lp.leftMargin = getPixel(DEFAULT_TEXTVIEW_MARGIN_SIDE);
             lp.rightMargin = getPixel(DEFAULT_TEXTVIEW_MARGIN_SIDE);
+            lp.leftMargin = getPixel(DEFAULT_TEXTVIEW_MARGIN_SIDE / 2);
             setOrientation(LinearLayout.VERTICAL);
             textView.setTextColor(floatLableTextColor);
+            textView.setTextSize(10);
             textView.setVisibility(GONE);
             addView(textView, 0, lp);
             addView(editText, 1);
