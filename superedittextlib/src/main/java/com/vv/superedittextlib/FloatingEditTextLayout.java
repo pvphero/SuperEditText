@@ -233,4 +233,13 @@ public class FloatingEditTextLayout extends TextInputLayout {
         }
         state = null;
     }
+
+    public String getFloatLableText() {
+        return floatLableText;
+    }
+
+    public void setFloatLableText(String floatLableText) {
+        this.floatLableText = floatLableText;
+        postInvalidate();
+    }
 }
