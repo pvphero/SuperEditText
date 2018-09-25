@@ -66,6 +66,7 @@ public class FloatingEditTextLayout extends TextInputLayout {
         floatLableText = typedArray.getString(R.styleable.SuperEditText_suet_floatingLabelText);
         floatLableTextColor = typedArray.getColor(R.styleable.SuperEditText_suet_floatingLabelTextColor, Color.GRAY);
         isFloatingLabelAlwaysShown = typedArray.getBoolean(R.styleable.SuperEditText_suet_floatingLabelAlwaysShown, true);
+        floatingLabelTextSize = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_floatingLabelTextSize, getPixel(10));
         initEdittext(typedArray);
         typedArray.recycle();
         initChildView();
@@ -81,7 +82,7 @@ public class FloatingEditTextLayout extends TextInputLayout {
             lp.leftMargin = getPixel(DEFAULT_TEXTVIEW_MARGIN_SIDE / 2);
             setOrientation(LinearLayout.VERTICAL);
             textView.setTextColor(floatLableTextColor);
-            textView.setTextSize(10);
+            textView.getPaint().setTextSize(floatingLabelTextSize);
             textView.setVisibility(GONE);
             addView(textView, 0, lp);
             addView(editText, 1);
