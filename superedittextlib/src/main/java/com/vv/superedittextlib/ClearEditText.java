@@ -39,7 +39,7 @@ import java.lang.reflect.Field;
  */
 public class ClearEditText extends AppCompatEditText implements View.OnFocusChangeListener {
 
-    private int DEFAULT_CLEAR_BUTTON_COLOR = 0xFFC9C9C9;
+    private int DEFAULT_CLEAR_BUTTON_COLOR = 0xFFDBDBDB;
     //动画时长
     private final int ANIMATOR_TIME = 200;
     //按钮左右间隔,单位DP
@@ -107,7 +107,7 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
         typedArray.recycle();
 
 //        mBitmapClear = createBitmap(CLEAR, context);
-        iconSize = getPixel(28);
+        iconSize = getPixel(25);
         mBitmapClear = generateIconBitmaps(R.drawable.met_ic_clear);
         Interval = getPixel(INTERVAL);
         mWidthClear = iconSize;
