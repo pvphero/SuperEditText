@@ -87,6 +87,7 @@
 
         <!-- Clear button -->
         <attr name="suet_clearButton" format="boolean" />
+        <attr name="suet_clearButtonSize" format="dimension" />
         <attr name="android:text" />
         <attr name="android:textAllCaps" />
         <attr name="android:textColor" />

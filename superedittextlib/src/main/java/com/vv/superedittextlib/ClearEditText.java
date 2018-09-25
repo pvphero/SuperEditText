@@ -104,10 +104,10 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
         isSafeInputText = typedArray.getBoolean(R.styleable.SuperEditText_suet_isSafeInputText, false);
         isShowClearButton = typedArray.getBoolean(R.styleable.SuperEditText_suet_clearButton, false);
         clearButtonColor = typedArray.getColor(R.styleable.SuperEditText_suet_clearButtonColor, DEFAULT_CLEAR_BUTTON_COLOR);
+        iconSize = typedArray.getDimensionPixelSize(R.styleable.SuperEditText_suet_clearButtonSize, getPixel(25));
         typedArray.recycle();
 
 //        mBitmapClear = createBitmap(CLEAR, context);
-        iconSize = getPixel(25);
         mBitmapClear = generateIconBitmaps(R.drawable.met_ic_clear);
         Interval = getPixel(INTERVAL);
         mWidthClear = iconSize;
@@ -543,6 +543,15 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
 
     public void setShowClearButton(boolean showClearButton) {
         isShowClearButton = showClearButton;
+        postInvalidate();
+    }
+
+    public int getIconSize() {
+        return iconSize;
+    }
+
+    public void setIconSize(int iconSize) {
+        this.iconSize = iconSize;
         postInvalidate();
     }
 }
