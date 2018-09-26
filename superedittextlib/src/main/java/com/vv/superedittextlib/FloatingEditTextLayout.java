@@ -219,7 +219,7 @@ public class FloatingEditTextLayout extends TextInputLayout {
     }
 
     public void showFloatTextView() {
-        if (hasFocus()) {
+        if (hasFocus() && editText.isEnabled()) {
             getChildAt(0).setVisibility(VISIBLE);
         }
         isFloatingLabelAlwaysShown = true;
@@ -242,5 +242,16 @@ public class FloatingEditTextLayout extends TextInputLayout {
     public void setFloatLableText(String floatLableText) {
         this.floatLableText = floatLableText;
         postInvalidate();
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+//        editText.setEnabled(enabled);
+        if (!enabled) {
+            hideFloatTextView();
+        } else {
+            showFloatTextView();
+        }
+        super.setEnabled(enabled);
     }
 }
