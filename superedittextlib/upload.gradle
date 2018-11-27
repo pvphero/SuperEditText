@@ -3,8 +3,8 @@ ext {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
     verMajor = 1
-    verMinor = 0
-    verPatch = 9
+    verMinor = 2
+    verPatch = 2
 
     bintray = [
             artifactId    : 'edittextlib',
