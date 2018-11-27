@@ -4,31 +4,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.EditText;
 
 import com.vv.superedittextlib.ClearEditText;
 import com.vv.superedittextlib.FloatingEditTextLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText mEditText;
-    private EditText editText;
-    private EditText mEditText2;
-
-    private FloatingEditTextLayout floatingEditTextLayout;
+    private FloatingEditTextLayout editTextLayoutError, editTextLayoutCase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mEditText = findViewById(R.id.super_edittext);
-        editText = findViewById(R.id.super_edittext2);
-        floatingEditTextLayout = findViewById(R.id.MyFloatingEditText);
-        floatingEditTextLayout.hideFloatTextView();
-        floatingEditTextLayout.setLayoutError("账号错误");
-//        mEditText2 = findViewById(R.id.super_edittext3);
+        editTextLayoutError = findViewById(R.id.edittext_layout_error);
+        editTextLayoutCase = findViewById(R.id.edittext_layout_case);
 
-        mEditText.addTextChangedListener(new TextWatcher() {
+
+        editTextLayoutError.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -36,34 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 6) {
-                    mEditText.setError(null);
+                if (s.length() > 10) {
+                    editTextLayoutError.setError(null);
+                    editTextLayoutError.hideFloatTextView();
+                    ((ClearEditText) editTextLayoutError.getEditText()).setShowClearButton(false);
+                    editTextLayoutError.setLayoutError(null);
                 } else {
-                    mEditText.setError("身份证号码错误!");
-                }
-                floatingEditTextLayout.showFloatTextView();
-                ((ClearEditText) floatingEditTextLayout.getEditText()).setShowClearButton(false);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (s.length() > 6) {
-                    editText.setError(null);
-                } else {
-                    editText.setError("身份证号码错误!");
+                    editTextLayoutError.setLayoutError("身份证号码错误!");
+                    editTextLayoutError.showFloatTextView();
+                    ((ClearEditText) editTextLayoutError.getEditText()).setShowClearButton(true);
                 }
             }
 
@@ -73,26 +46,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        mEditText2.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (s.length() > 6) {
-//                    mEditText2.setError(null);
-//                } else {
-//                    mEditText2.setError("身份证号码错误!");
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
+        editTextLayoutCase.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() < 10) {
+                    editTextLayoutCase.setError("位数错误");
+                } else {
+                    editTextLayoutCase.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 }

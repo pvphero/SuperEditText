@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">SuperEditText</string>
-    <string name="tip_text_empl_buss_name">请填写客户的工作单位全称；\n &#042;自雇/个体户申请人：SE+单位/个体名称 \n&#042;农民/务农申请人：FM+雇主/能够证明客户职业的联系人姓名 \n&#042;自由职业者申请人：FR+能够证明客户职业的联系人姓名\n&#042;自由职业者申请人：FR+能够证明客户职业的联系人姓名</string>
+    <!--<string name="tip_text_empl_buss_name">请填写客户的工作单位全称;\n*自雇/个体户申请人:SE+单位/个体名称\n*农民/务农申请人:FM+雇主/能够证明客户职业的联系人姓名\n*自由职业者申请人:FR+能够证明客户职业的联系人姓名</string>-->
+    <!--<string name="tip_text_empl_buss_name">优先填写工作单位固话。\n农民申请人填写电话优先顺序为：申请人本人 - 申请人亲属 - 申请人邻居或好友</string>-->
+    <!--<string name="tip_text_empl_buss_name">Please fill the full business name:\n*For self-employed/indicidual household applicants please fill SE+the name of self-employed business\n*For farmer applicants please fill FM+employer\'s name/the name of people who can confirm client\'s occupation\n*For Freelance please fill FR+the name of people who can confirm client\'s occupation</string>-->
+    <string name="tip_text_empl_buss_name">Please fill the employer\'s landline.\nThe priority of farmer\'s employer phone number is: the applicant - the applicant\'s relatives - the applicant\'s neighbours or friends.</string>
 
 </resources>

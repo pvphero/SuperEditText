@@ -10,205 +10,51 @@
 
 
     <com.vv.superedittextlib.FloatingEditTextLayout
-        android:id="@+id/MyFloatingEditText"
+        android:id="@+id/edittext_layout_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Example"
+        android:layout_margin="16dp"
+        android:hint="Layout显示错误"
         android:imeOptions="actionDone"
         android:inputType="textCapWords|textEmailAddress"
         android:maxLength="100"
         android:maxLines="2"
-        app:suet_floatingLabelText="djskjdsdjskjdsdjskjdsdjsk\njdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjds"
+        android:paddingRight="10dp"
         android:textAllCaps="true"
         android:textColor="?colorPrimary"
         android:textSize="18sp"
         android:textStyle="italic"
+        app:hintAnimationEnabled="true"
+        app:hintTextAppearance="@style/HintTextAppearance"
         app:suet_clearButton="true"
+        app:suet_floatingLabelText="超过10个字，提示跟清楚按钮会消失，Layout显示错误"
         app:suet_floatingLabelTextColor="?colorPrimary"
-        app:hintAnimationEnabled="true"
-        app:suet_isSafeInputText="true"
-        android:paddingRight="10dp"
-        app:hintTextAppearance="@style/HintTextAppearance">
-
-    </com.vv.superedittextlib.FloatingEditTextLayout>
-
-
-    <com.vv.superedittextlib.FloatingEditTextLayout
-        android:id="@+id/MyFloatingEditText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Example"
-        android:imeOptions="actionDone"
-        android:inputType="textCapWords|textEmailAddress"
-        android:maxLength="100"
-        android:maxLines="2"
-        app:suet_floatingLabelText="djskjdsdjskjdsdjskjdsdjsk\njdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjdsdjskjds"
-        android:textAllCaps="true"
-        android:textColor="?colorPrimary"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        app:suet_floatingLabelTextColor="?colorPrimary"
-        app:hintAnimationEnabled="true"
-        android:paddingRight="10dp"
-        app:hintTextAppearance="@style/HintTextAppearance">
-
-    </com.vv.superedittextlib.FloatingEditTextLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-
-        app:hintAnimationEnabled="true"
-        app:hintTextAppearance="@style/HintTextAppearance">
-
-        <com.vv.superedittextlib.ClearEditText
-            android:id="@+id/super_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="身份证号码* "
-            app:suet_clearButton="true"
-            android:paddingRight="10dp" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <com.vv.superedittextlib.FloatingEditTextLayout
-        android:id="@+id/MyFloatingEditText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Example"
-        android:imeOptions="actionDone"
-        android:inputType="textCapWords|textEmailAddress"
-        android:maxLength="100"
-        android:maxLines="2"
-        app:suet_floatingLabelText="@string/tip_text_empl_buss_name"
-        android:textAllCaps="true"
-        android:textSize="24sp"
-        app:hintAnimationEnabled="true"
-        app:suet_clearButton="true"
-        app:hintTextAppearance="@style/HintTextAppearance">
-
-    </com.vv.superedittextlib.FloatingEditTextLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="身份证号码* "
-        app:hintAnimationEnabled="true"
-        app:hintTextAppearance="@style/HintTextAppearance">
-
-        <com.vv.superedittextlib.SuperEditText
-            android:id="@+id/super_edittext2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:suet_floatingLabel="normal"
-            app:suet_floatingLabelText="@string/tip_text_empl_buss_name"
-            app:suet_isSafeInputText="true"
-            app:suet_clearButton="true"
-            app:suet_isNeedShowFloatingLableText="false"
-            app:suet_floatingLableTextAutoFontSizeMaxLines="5"
-            app:suet_helperText="helper is here" />
-
-    </android.support.design.widget.TextInputLayout>
-
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="身份证号码* "
-        app:hintAnimationEnabled="true"
-        app:hintTextAppearance="@style/HintTextAppearance">
-
-        <com.vv.superedittextlib.SuperEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:suet_floatingLabel="normal"
-            app:suet_floatingLabelText="@string/tip_text_empl_buss_name"
-            app:suet_isSafeInputText="true"
-            app:suet_clearButton="true"
-            app:suet_floatingLableTextAutoFontSizeMaxLines="5"
-            app:suet_helperText="helper is here" />
-
-    </android.support.design.widget.TextInputLayout>
-
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="身份证号码* "
-        app:hintAnimationEnabled="true"
-        app:hintTextAppearance="@style/HintTextAppearance">
-
-        <com.vv.superedittextlib.SuperEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:suet_floatingLabel="normal"
-            app:suet_floatingLabelText="@string/tip_text_empl_buss_name"
-            app:suet_isSafeInputText="true"
-            app:suet_clearButton="true"
-            app:suet_floatingLableTextAutoFontSizeMaxLines="5"
-            app:suet_helperText="helper is here" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="身份证号码* "
-        app:hintAnimationEnabled="true"
-        app:hintTextAppearance="@style/HintTextAppearance">
-
-        <com.vv.superedittextlib.SuperEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:suet_floatingLabel="normal"
-            app:suet_floatingLabelText="@string/tip_text_empl_buss_name"
-            app:suet_isSafeInputText="true"
-            app:suet_clearButton="true"
-            app:suet_floatingLableTextAutoFontSizeMaxLines="5"
-            app:suet_helperText="helper is here" />
-
-    </android.support.design.widget.TextInputLayout>
-
-
-
-
-    <com.vv.superedittextlib.FloatingEditTextLayout
-        android:id="@+id/idCardNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Example"
-        android:inputType="text|textNoSuggestions|textVisiblePassword"
-        android:maxLength="18"
-        android:paddingRight="10dp"
-        android:maxLines="1"
-        android:singleLine="true"
-        app:suet_clearButton="true"
-        app:suet_floatingLabelText="djskdjskjdksjdsjdks"
         app:suet_isSafeInputText="true">
 
     </com.vv.superedittextlib.FloatingEditTextLayout>
 
-    <!--<android.support.design.widget.TextInputLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="16dp"-->
-    <!--android:hint="身份证号码* "-->
-    <!--app:hintAnimationEnabled="true"-->
-    <!--app:hintTextAppearance="@style/HintTextAppearance">-->
 
-    <!--<EditText-->
-    <!--android:id="@+id/edit_text"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--/>-->
+    <com.vv.superedittextlib.FloatingEditTextLayout
+        android:id="@+id/edittext_layout_case"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="editText显示错误"
+        android:imeOptions="actionDone"
+        android:inputType="textCapWords|textEmailAddress"
+        android:maxLength="100"
+        android:maxLines="2"
+        android:paddingRight="10dp"
+        android:textAllCaps="true"
+        android:textColor="?colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:hintAnimationEnabled="true"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:suet_clearButton="true"
+        app:suet_floatingLabelText="少于10个字，EditText提示错误"
+        app:suet_floatingLabelTextColor="?colorPrimary">
 
-    <!--</android.support.design.widget.TextInputLayout>-->
+    </com.vv.superedittextlib.FloatingEditTextLayout>
 
 </LinearLayout>
