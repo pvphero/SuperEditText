@@ -163,61 +163,113 @@ public class FloatingEditTextLayout extends TextInputLayout {
         editText.setOnFocusChangeListener(innerFocusChangeListener);
     }
 
+    /**
+     * 获取editText的Text
+     *
+     * @return
+     */
     public String getText() {
         return editText.getText().toString();
     }
 
+    /**
+     * 设置editText的Text
+     * @param text
+     */
     public void setText(String text) {
         editText.setText(text);
     }
 
+    /**
+     * 设置editText的error
+     * @param errorText
+     */
     @Override
     public void setError(@Nullable CharSequence errorText) {
         editText.setError(errorText);
     }
 
+    /**
+     * 设置Layout的Error
+     * @param errorText
+     */
     public void setLayoutError(@Nullable CharSequence errorText) {
         super.setError(errorText);
     }
 
 
+    /**
+     * 设置Hint
+     * @param hintRes
+     */
     public void setHint(@StringRes int hintRes) {
         setHint(getContext().getString(hintRes));
     }
 
+    /**
+     * 监听editText的TextChange
+     * @param textWatcher
+     */
     public void addTextChangedListener(TextWatcher textWatcher) {
         editText.addTextChangedListener(textWatcher);
     }
 
+    /**
+     * 移除editText textChange的监听事件
+     * @param textWatcher
+     */
     public void removeTextChangedListener(TextWatcher textWatcher) {
         editText.removeTextChangedListener(textWatcher);
     }
 
+    /**
+     * 获取EditText
+     * @return
+     */
     @Override
     @NonNull
     public EditText getEditText() {
         return editText;
     }
 
+    /**
+     * 获取PX
+     * @param dp
+     * @return
+     */
     private int getPixel(int dp) {
         return Density.dp2px(getContext(), dp);
     }
 
+    /**
+     * 判断是否要一直显示提示的字
+     * @return
+     */
     public boolean isFloatingLabelAlwaysShown() {
         return isFloatingLabelAlwaysShown;
     }
 
+    /**
+     * 设置提示的字是否一直显示
+     * @param floatingLabelAlwaysShown
+     */
     public void setFloatingLabelAlwaysShown(boolean floatingLabelAlwaysShown) {
         isFloatingLabelAlwaysShown = floatingLabelAlwaysShown;
         postInvalidate();
     }
 
+    /**
+     * 隐藏提示的字
+     */
     public void hideFloatTextView() {
         getChildAt(0).setVisibility(GONE);
         isFloatingLabelAlwaysShown = false;
         postInvalidate();
     }
 
+    /**
+     * 显示提示的字
+     */
     public void showFloatTextView() {
         if (hasFocus() && editText.isEnabled()) {
             getChildAt(0).setVisibility(VISIBLE);
@@ -235,18 +287,30 @@ public class FloatingEditTextLayout extends TextInputLayout {
         state = null;
     }
 
+
+    /**
+     * 获取提示的字
+     * @return
+     */
     public String getFloatLableText() {
         return floatLableText;
     }
 
+    /**
+     * 设置提示的字
+     * @param floatLableText
+     */
     public void setFloatLableText(String floatLableText) {
         this.floatLableText = floatLableText;
         postInvalidate();
     }
 
+    /**
+     * 设置enable，如果enable=false则隐藏提示的字，如果enable=true则显示提示的字
+     * @param enabled
+     */
     @Override
     public void setEnabled(boolean enabled) {
-//        editText.setEnabled(enabled);
         if (!enabled) {
             hideFloatTextView();
         } else {
